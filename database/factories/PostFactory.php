@@ -30,6 +30,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => (string) str(fake()->sentence())->trim('.')->title(),
+            'excerpt' => fake()->sentence(),
             'content' => implode("\n\n", fake()->paragraphs()),
             'created_at' => fake()->dateTimeBetween('-1 year'),
         ];
