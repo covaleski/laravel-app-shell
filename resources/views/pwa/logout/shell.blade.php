@@ -1,4 +1,4 @@
-<div class="app__shell app__shell--blank" @pwaShell()>
+<div class="shell shell--blank" @pwaShell()>
     <main class="page page--centered" @pwaPage()>
         @include($page)
     </main>

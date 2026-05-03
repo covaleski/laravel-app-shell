@@ -11,18 +11,21 @@
 
 @push('styles')
     <style>
-        .app__overlay {
+        .overlay {
             background: white;
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 9999;
+            z-index: 2;
             transition: opacity 500ms, width 0ms 500ms, height 0ms 500ms;
         }
 
-        .app__shell + .app__overlay {
+        .shell {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .shell + .overlay {
             opacity: 0;
             width: 0;
             height: 0;
@@ -31,5 +34,5 @@
 @endpush
 
 @section('body.end')
-    <div id="overlay" class="app__overlay"></div>
+    <div id="overlay" class="overlay"></div>
 @endsection

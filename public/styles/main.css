@@ -22,7 +22,7 @@
     }
 }
 
-.app__shell--blank {
+.shell--blank {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -32,7 +32,7 @@
     padding: 1rem;
 }
 
-.app__shell--user {
+.shell--user {
     display: flex;
     flex-direction: column;
     gap: 1rem;

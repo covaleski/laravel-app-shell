@@ -1,4 +1,4 @@
-<div class="app__shell app__shell--user" @pwaShell()>
+<div class="shell shell--user" @pwaShell()>
     <header class="header">
         <nav class="navbar">
             <a class="navbar__heading" @pwaLink(route('pwa'))>
