@@ -10,10 +10,6 @@ return [
     | This option defines the default attributes for the main elements that
     | compose the application entrypoint view.
     |
-    | You can also override any attributes by passing an array of to the
-    | `@pwaContainer`, `@pwaShell`, `@pwaOverlay` and `@pwaScript` directives
-    | when creating your custom entrypoint view.
-    |
     */
 
     'attributes' => [
