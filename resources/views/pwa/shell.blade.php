@@ -1,49 +1,28 @@
-<div class="shell shell--user" @pwaShell()>
-    <header class="header">
-        <nav class="navbar">
-            <a class="navbar__heading" @pwaLink(route('pwa'))>
-                <h1>{{ config('app.name') }}</h1>
-            </a>
-            <ul class="navbar__list">
-                <li class="navbar__item">
-                    <a class="navbar__link" @pwaLink(route('pwa.about'))>
-                        About
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a class="navbar__link" @pwaLink(route('pwa.posts'))>
-                        Posts
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a class="navbar__link" @pwaLink(route('pwa.posts.new'))>
-                        New Post
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a class="navbar__link" @pwaLink(route('pwa.login'))>
-                        Login
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a class="navbar__link" @pwaLink(route('pwa.account'))>
-                        Account
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a class="navbar__link" @pwaLink(route('pwa.logout'))>
-                        Logout
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main id="page" class="page">
+<div class="shell d-flex flex-column align-items-stretch" @pwaShell()>
+    <main class="d-flex flex-column flex-fill overflow-auto" @pwaPage()>
         @include($page)
     </main>
-    <footer class="footer">
-        <div class="debugbar">
-            This is the <strong>user</strong> shell from {{ date('H:i:s') }}.
-        </div>
-    </footer>
+    <aside class="d-flex flex-grow-0 flex-shrink-0 bg-dark">
+        <nav class="nav nav-pills nav-fill d-flex gap-2 flex-fill p-1">
+            @foreach ($menus as $menu)
+                <a {{ attributes([
+                    'class' => [
+                        'nav-link',
+                        'link-light',
+                        'active' => $menu->active,
+                    ],
+                    'href' => $menu->url,
+                    'title' => $menu->label,
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'top',
+                    'data-bs-trigger' => 'hover',
+                    'aria-label' => $menu->label,
+                    'aria-current' => $menu->active ? 'page' : null,
+                    'hx-on:click' => 'htmx.setCurrent(this, "active", "page")',
+                ]) }}>
+                    <i class="bi bi-{{ $menu->icon }} fs-4"></i>
+                </a>
+            @endforeach
+        </ul>
+    </aside>
 </div>

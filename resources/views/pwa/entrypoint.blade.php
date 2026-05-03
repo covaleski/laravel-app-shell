@@ -1,12 +1,14 @@
 @extends('layouts.entrypoint')
 
 @push('assets.preload')
-    <link rel="preload" as="style" type="text/css" href="{{ asset('styles/main.css') }}"/>
+    @bootstrap_css_preload
+    @bootstrap_icons_preload
 @endpush
 
 @push('assets')
+    @bootstrap_css
+    @bootstrap_icons
     <link rel="icon" type="image/png" href="{{ asset('icons/icon.48x48.png') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/main.css') }}"/>
 @endpush
 
 @push('styles')
@@ -36,3 +38,11 @@
 @section('body.end')
     <div id="overlay" class="overlay"></div>
 @endsection
+
+@push('scripts')
+    @bootstrap_js
+    <script type="text/javascript" src="{{ asset('scripts/bootstrap.extend.js') }}" defer="defer">
+    </script>
+    <script type="text/javascript" src="{{ asset('scripts/htmx.extend.js') }}" defer="defer">
+    </script>
+@endpush
