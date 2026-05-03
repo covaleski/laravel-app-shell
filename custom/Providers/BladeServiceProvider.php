@@ -36,7 +36,7 @@ class BladeServiceProvider extends ServiceProvider
     {
         Blade::directive('pwaLink', function (string $expression) {
             return <<<PHP
-                <?php echo \Illuminate\Support\Arr::toHtmlAttributes([
+                <?php attributes([
                     'hx-get' => {$expression},
                     'hx-push-url' => 'true',
                 ]); ?>
