@@ -2,8 +2,11 @@
 
 namespace Covaleski\LaravelPwa\View;
 
+use Closure;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
 class Page implements Responsable
@@ -39,6 +42,63 @@ class Page implements Responsable
     }
 
     /**
+     * Get data for the page view.
+     */
+    protected function composePageView(View $view): void
+    {
+        $view->with($this->loadData(dirname($view->getPath()) . "/data.php"));
+    }
+
+    /**
+     * Get data for the page view.
+     */
+    protected function composeShellView(View $view): void
+    {
+        $view->with([
+            'shell' => $view->getName(),
+            'page' => $this->getPageView()->render(),
+        ]);
+    }
+
+    /**
+     * Get a page view instance.
+     */
+    protected function getPageView(): View
+    {
+        return tap(view($this->view), $this->composePageView(...));
+    }
+
+    /**
+     * Get a shell view instance.
+     */
+    protected function getShellView(): View
+    {
+        return tap(view($this->shell), $this->composeShellView(...));
+    }
+
+    /**
+     * Load data using the specified PHP script.
+     */
+    protected function loadData(string $filename): array
+    {
+        if (file_exists($filename)) {
+            $data = require $filename;
+            if ($data instanceof Closure) {
+                $data = app()->call($data);
+            }
+            if (!is_array($data)) {
+                $message = "Failed to get an array from {$filename}";
+                throw new RuntimeException($message);
+            }
+            logger()->debug("Data from {$filename}: {" . collect($data)->map(fn ($v, $k) => $k . ': ' . (is_object($v) ? $v::class : gettype($v)))->join(", ") . '}');
+            return $data;
+        } else {
+            logger()->debug("No file named {$filename}");
+            return [];
+        }
+    }
+
+    /**
      * Get whether the specified shell should be swapped.
      */
     protected function shouldSwapShell(string $shell): bool
@@ -51,7 +111,7 @@ class Page implements Responsable
      */
     protected function toPageSwapResponse(Request $request): Response
     {
-        return response(view($this->view), 200, [
+        return response($this->getPageView(), 200, [
             'HX-Retarget' => $request->header('HX-Page-Target', '#page'),
             'HX-Reswap' => 'innerHTML',
         ]);
@@ -62,7 +122,7 @@ class Page implements Responsable
      */
     protected function toShellSwapResponse(Request $request): Response
     {
-        return response(view($this->shell, ['page' => $this->view, 'shell' => $this->shell]), 200, [
+        return response($this->getShellView(), 200, [
             'HX-Retarget' => $request->header('HX-Shell-Target', '#shell'),
             'HX-Reswap' => 'outerHTML',
         ]);
