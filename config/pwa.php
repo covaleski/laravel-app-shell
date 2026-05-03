@@ -15,19 +15,23 @@ return [
     'attributes' => [
 
         'container' => [
-            'hx-headers' => '{"HX-Shell-Target": "#shell", "HX-Page-Target": "#page"}',
+            'hx-boost' => 'true',
+            'hx-headers' => '{"HX-Current-Shell": "", "HX-Shell-Target": "#shell", "HX-Page-Target": "#page"}',
             'id' => 'app',
-            'class' => 'app',
+        ],
+
+        'page' => [
+            'id' => 'page',
+        ],
+
+        'placeholder' => [
+            'hx-get' => '',
+            'hx-trigger' => 'load from:window',
+            'id' => 'shell',
         ],
 
         'shell' => [
-            'hx-get' => '',
-            'hx-headers' => '{"HX-Current-Shell": ""}',
-            'hx-push-url' => 'true',
-            'hx-swap' => 'outerHTML',
-            'hx-trigger' => 'load from:window',
             'id' => 'shell',
-            'class' => 'app__not-a-shell',
         ],
 
         'script' => [

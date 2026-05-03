@@ -22,7 +22,7 @@
     </head>
     <body {{ attributes(config('pwa.attributes.container')) }}>
         @yield('body.start')
-        <div {{ attributes(config('pwa.attributes.shell')) }}></div>
+        <div {{ attributes(config('pwa.attributes.placeholder')) }}></div>
         @yield('body.end')
         @section('scripts')
             <script {{ attributes(config('pwa.attributes.script')) }}></script>
