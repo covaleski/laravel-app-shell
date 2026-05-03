@@ -9,17 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 class Page implements Responsable
 {
     /**
-     * Create a page instance.
-     */
-    public static function make(string $view, string $shell): static
-    {
-        return new static($view, $shell);
-    }
-
-    /**
      * Create the page instance.
      */
-    final public function __construct(
+    public function __construct(
         /**
          * View name.
          */

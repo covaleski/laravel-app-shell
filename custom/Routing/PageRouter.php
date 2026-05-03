@@ -120,7 +120,7 @@ class PageRouter
             $view,
         ) {
             if ($request->htmx()) {
-                return Page::make($view, $shell);
+                return new Page($view, $shell);
             } else {
                 return view($entrypoint, ['manifest' => route($manifest)]);
             }
