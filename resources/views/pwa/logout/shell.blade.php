@@ -1,6 +1,6 @@
 <div class="shell" @pwaShell()>
     <main @pwaPage()>
-        @include($page)
+        {!! $page !!}
     </main>
     <footer>
         <div>

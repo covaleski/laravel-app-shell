@@ -1,6 +1,6 @@
 <div class="shell d-flex flex-column align-items-stretch" @pwaShell()>
     <main class="d-flex flex-column flex-fill overflow-auto" @pwaPage()>
-        @include($page)
+        {!! $page !!}
     </main>
     <aside class="d-flex flex-grow-0 flex-shrink-0 bg-dark">
         <nav class="nav nav-pills nav-fill d-flex gap-2 flex-fill p-1">
