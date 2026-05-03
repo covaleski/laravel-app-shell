@@ -1,8 +1,4 @@
-@extends('layouts.shell')
-
-@section('class', 'app__shell--user')
-
-@section('content')
+<div class="app__shell app__shell--user" @pwaShell()>
     <header class="header">
         <nav class="navbar">
             <a class="navbar__heading" @pwaLink(route('pwa'))>
@@ -50,4 +46,4 @@
             This is the <strong>user</strong> shell from {{ date('H:i:s') }}.
         </div>
     </footer>
-@endsection
+</div>
