@@ -8,6 +8,7 @@
 @push('assets')
     @bootstrap_css
     @bootstrap_icons
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/main.css') }}"/>
     <link rel="icon" type="image/png" href="{{ asset('icons/icon.48x48.png') }}"/>
 @endpush
 
