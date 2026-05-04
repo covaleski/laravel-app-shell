@@ -106,6 +106,14 @@ class PageRouter
     }
 
     /**
+     * Format a directory name as a URI segment.
+     */
+    protected function formatSegment(string $directory): string
+    {
+        return str($directory)->replace(['[', ']'], ['{', '}'])->toString();
+    }
+
+    /**
      * Get the callback for the current page.
      */
     protected function getCallback(string $shell): Closure
@@ -248,7 +256,7 @@ class PageRouter
     {
         $router = new static(
             route: $this->joinPaths($this->route, $directory, '.'),
-            uri: $this->joinPaths($this->uri, $directory, '/'),
+            uri: $this->joinPaths($this->uri, $this->formatSegment($directory), '/'),
             views: $this->joinPaths($this->views, $directory, '.'),
         );
         $router
