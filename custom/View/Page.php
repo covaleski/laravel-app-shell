@@ -90,10 +90,8 @@ class Page implements Responsable
                 $message = "Failed to get an array from {$filename}";
                 throw new RuntimeException($message);
             }
-            logger()->debug("Data from {$filename}: {" . collect($data)->map(fn ($v, $k) => $k . ': ' . (is_object($v) ? $v::class : gettype($v)))->join(", ") . '}');
             return $data;
         } else {
-            logger()->debug("No file named {$filename}");
             return [];
         }
     }

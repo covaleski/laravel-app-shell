@@ -55,9 +55,9 @@ return [
     */
 
     'router' => [
-        'route' => 'pwa',
+        'route_prefix' => 'pwa',
         'uri' => '/app',
-        'views' => 'pwa',
+        'view_root' => 'pwa',
     ],
 
 ];
