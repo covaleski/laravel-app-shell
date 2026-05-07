@@ -32,9 +32,9 @@ class ProfileComposer
     public function compose(View $view): void
     {
         $view->with('menus', collect([
-            $this->menu('pwa', 'Home', 'house'),
-            $this->menu('pwa.posts', 'Posts', 'newspaper'),
-            $this->menu('pwa.posts.new', 'New Post', 'plus-circle'),
+            $this->menu('pwa.posts', 'Home', 'house'),
+            $this->menu('pwa.bookmarks', 'Saved', 'bookmarks'),
+            $this->menu('pwa.alerts', 'Alerts', 'bell'),
             $this->menu('pwa.account', 'Account', 'person-gear'),
         ])->tap($this->activate(...)));
     }
