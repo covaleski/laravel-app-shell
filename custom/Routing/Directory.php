@@ -12,6 +12,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RuntimeException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
 class Directory
 {
@@ -90,14 +91,9 @@ class Directory
      */
     public function getCallback(): Closure
     {
-        return function (Request $request) {
-            if ($request->htmx()) {
+        return $this->makeCallback(function () {
                 return new Page($this->page, $this->shell);
-            } else {
-                $manifest = route($this->manifest->getRouteName());
-                return view($this->entrypointView, compact('manifest'));
-            }
-        };
+            });
     }
 
     /**
@@ -187,6 +183,26 @@ class Directory
     protected function loadOptions(string $filename): ?object
     {
         return file_exists($filename) ? require $filename : null;
+    }
+
+    /**
+     * Create a route callback that handles content negotiation.
+     */
+    protected function makeCallback(Closure $callback): Closure
+    {
+        return function (Request $request) use ($callback) {
+            if (!$request->acceptsHtml()) {
+                throw new NotAcceptableHttpException(
+                    headers: [],
+                );
+            } elseif ($request->htmx()) {
+                return app()->call($callback);
+            } else {
+                return view($this->entrypointView, [
+                    'manifest' => route($this->manifest->getRouteName()),
+                ]);
+            }
+        };
     }
 
     /**
