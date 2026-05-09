@@ -50,6 +50,10 @@ class PackageServiceProvider extends ServiceProvider
      */
     protected function bootAssets(): void
     {
+        $this->loadViewsFrom(
+            "{$this->path}/resources/views/default",
+            'pwa',
+        );
         $this->publishes([
             "{$this->path}/config/pwa.php" => config_path('pwa.php'),
         ]);

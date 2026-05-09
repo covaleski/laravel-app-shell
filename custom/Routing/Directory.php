@@ -27,12 +27,12 @@ class Directory
     /**
      * Resolved page view name.
      */
-    protected string $page;
+    protected string $pageView;
 
     /**
      * Resolved shell view name.
      */
-    protected string $shell;
+    protected string $shellView;
 
     /**
      * Create the directory instance.
@@ -76,15 +76,15 @@ class Directory
         /**
          * Inherited shell view name.
          */
-        protected ?string $parentShell = null,
+        protected string $parentShellView = 'pwa::shell',
     ) {
         $this->filePrefix = $this->trimFilePath($file_path);
         $this->routePrefix = $this->trimRoutePath($route_name);
         $this->uriPrefix = $this->trimUriPath($uri_path);
         $this->viewPrefix = $this->trimViewPath($view_path);
         $this->options = $this->resolveOptions();
-        $this->page = $this->resolvePage();
-        $this->shell = $this->resolveShell();
+        $this->pageView = $this->resolvePageView();
+        $this->shellView = $this->resolveShellView();
     }
 
     /**
@@ -93,7 +93,7 @@ class Directory
     public function getCallback(): Closure
     {
         return $this->makeCallback(function () {
-            return new Page($this->page, $this->shell);
+            return new Page($this->pageView, $this->shellView);
         });
     }
 
@@ -113,7 +113,7 @@ class Directory
                 uri_path: $this->formatUriSegment($directory),
                 view_path: $this->prefixViewPath($directory),
                 parentOptions: $this->options,
-                parentShell: $this->shell,
+                parentShellView: $this->shellView,
             ),
             $this->getFilesystem()->directories(),
         );
@@ -174,7 +174,7 @@ class Directory
      */
     public function hasPage(): bool
     {
-        return view()->exists($this->page);
+        return view()->exists($this->pageView);
     }
 
     /**
@@ -242,7 +242,7 @@ class Directory
     /**
      * Get the page view name.
      */
-    protected function resolvePage(): string
+    protected function resolvePageView(): string
     {
         return $this->prefixViewPath('page');
     }
@@ -250,24 +250,12 @@ class Directory
     /**
      * Get the shell view name.
      */
-    protected function resolveShell(): string
+    protected function resolveShellView(): string
     {
-        return $this->validateShell($this->prefixViewPath('shell'));
-    }
-
-    /**
-     * Check if a shell view exists and return its name or the parent view name.
-     *
-     * Throws an exception if can't find any of those shells.
-     */
-    protected function validateShell(string $view): string
-    {
-        if (view()->exists($view)) {
+        if (view()->exists($view = $this->prefixViewPath('shell'))) {
             return $view;
-        } elseif ($this->parentShell) {
-            return $this->parentShell;
         } else {
-            throw new RuntimeException('Shell not found');
+            return $this->parentShellView;
         }
     }
 }
