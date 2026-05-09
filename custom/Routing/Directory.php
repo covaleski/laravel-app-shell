@@ -11,13 +11,18 @@ use Covaleski\LaravelPwa\View\Page;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use RuntimeException;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Directory
 {
     use HasFilePaths, HasRoutePaths, HasUriPaths, HasViewPaths;
+
+    /**
+     * Resolved error view name.
+     */
+    protected string $errorView;
 
     /**
      * Resolved directory options.
@@ -69,6 +74,11 @@ class Directory
         protected string $view_path,
 
         /**
+         * Inherited error view name.
+         */
+        protected string $parentErrorView = 'pwa::error',
+
+        /**
          * Inherited directory options.
          */
         protected ?Options $parentOptions = null,
@@ -82,6 +92,7 @@ class Directory
         $this->routePrefix = $this->trimRoutePath($route_name);
         $this->uriPrefix = $this->trimUriPath($uri_path);
         $this->viewPrefix = $this->trimViewPath($view_path);
+        $this->errorView = $this->resolveErrorView();
         $this->options = $this->resolveOptions();
         $this->pageView = $this->resolvePageView();
         $this->shellView = $this->resolveShellView();
@@ -112,6 +123,7 @@ class Directory
                 route_name: $this->prefixRoutePath($directory),
                 uri_path: $this->formatUriSegment($directory),
                 view_path: $this->prefixViewPath($directory),
+                parentErrorView: $this->errorView,
                 parentOptions: $this->options,
                 parentShellView: $this->shellView,
             ),
@@ -215,13 +227,31 @@ class Directory
                     headers: [],
                 );
             } elseif ($request->htmx()) {
-                return app()->call($callback);
+                try {
+                    return app()->call($callback);
+                } catch (Throwable $error) {
+                    return new Page($this->errorView, $this->shellView, [
+                        'error' => $error,
+                    ]);
+                }
             } else {
                 return view($this->entrypointView, [
                     'manifest' => route($this->manifest->getRouteName()),
                 ]);
             }
         };
+    }
+
+    /**
+     * Get the error view name.
+     */
+    protected function resolveErrorView(): string
+    {
+        if (view()->exists($view = $this->prefixViewPath('error'))) {
+            return $view;
+        } else {
+            return $this->parentErrorView;
+        }
     }
 
     /**
