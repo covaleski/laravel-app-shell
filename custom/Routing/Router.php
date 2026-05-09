@@ -53,7 +53,7 @@ class Router
      */
     public function route(): void
     {
-        $this->routeDirectory(new Directory(
+        $this->routeDirectory(tap(new Directory(
             file_path: $this->directory,
             entrypointView: $this->entrypointView,
             manifest: tap(new Manifest(
@@ -64,7 +64,7 @@ class Router
             route_name: $this->routePrefix,
             uri_path: $this->uriPrefix,
             view_path: $this->viewPrefix,
-        ));
+        ), $this->routeFallback(...)));
     }
 
     /**
@@ -131,5 +131,19 @@ class Router
         foreach ($directory->getDirectories() as $subdirectory) {
             $this->routeDirectory($subdirectory);
         }
+    }
+
+    /**
+     * Add a fallback route for the application.
+     */
+    protected function routeFallback(Directory $directory): void
+    {
+        $this->addRoute(
+            uri: $directory->getFallbackUri(),
+            route_name: $directory->getRouteName(),
+            callback: $directory->getFallbackCallback(),
+            middleware: $directory->getMiddleware(),
+            where: $directory->getWhere(),
+        )->fallback();
     }
 }

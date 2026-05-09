@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Directory
 {
@@ -92,8 +93,8 @@ class Directory
     public function getCallback(): Closure
     {
         return $this->makeCallback(function () {
-                return new Page($this->page, $this->shell);
-            });
+            return new Page($this->page, $this->shell);
+        });
     }
 
     /**
@@ -116,6 +117,24 @@ class Directory
             ),
             $this->getFilesystem()->directories(),
         );
+    }
+
+    /**
+     * Get the fallback route callback.
+     */
+    public function getFallbackCallback(): Closure
+    {
+        return $this->makeCallback(function () {
+            throw new NotFoundHttpException();
+        });
+    }
+
+    /**
+     * Get the fallback route URI.
+     */
+    public function getFallbackUri(): string
+    {
+        return $this->prefixUriPath('{path?}');
     }
 
     /**
