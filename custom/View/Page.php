@@ -24,6 +24,11 @@ class Page implements Responsable
          * Shell name.
          */
         protected string $shell,
+
+        /**
+         * Additional data.
+         */
+        protected array $data = [],
     ){
         //
     }
@@ -46,7 +51,8 @@ class Page implements Responsable
      */
     protected function composePageView(View $view): void
     {
-        $view->with($this->loadData(dirname($view->getPath()) . "/data.php"));
+        $data = $this->loadData(dirname($view->getPath()) . "/data.php");
+        $view->with($this->data)->with($data);
     }
 
     /**
