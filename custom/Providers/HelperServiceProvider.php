@@ -22,6 +22,15 @@ class HelperServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->bootFacadeMacros();
+        $this->bootHelperMacros();
+    }
+
+    /**
+     * Bootstrap package facade macros.
+     */
+    public function bootFacadeMacros(): void
+    {
         Facades\Request::macro('htmx', function () {
             /** @var Request $this */
             return $this->hasHeader('HX-Request');
@@ -31,5 +40,13 @@ class HelperServiceProvider extends ServiceProvider
             $router = new Router(...$args);
             $router->route();
         });
+    }
+
+    /**
+     * Boot package helper macros.
+     */
+    public function bootHelperMacros(): void
+    {
+        //
     }
 }

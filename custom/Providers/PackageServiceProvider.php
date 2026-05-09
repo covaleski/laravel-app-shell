@@ -25,10 +25,7 @@ class PackageServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(
-            "{$this->path}/config/pwa.php",
-            'htmx',
-        );
+        $this->registerConfigs();
     }
 
     /**
@@ -36,8 +33,27 @@ class PackageServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->bootAssets();
+    }
+
+    /**
+     * Bootstrap package assets.
+     */
+    protected function bootAssets(): void
+    {
         $this->publishes([
             "{$this->path}/config/pwa.php" => config_path('pwa.php'),
         ]);
+    }
+
+    /**
+     * Register package configuration files.
+     */
+    protected function registerConfigs(): void
+    {
+        $this->mergeConfigFrom(
+            "{$this->path}/config/pwa.php",
+            'htmx',
+        );
     }
 }

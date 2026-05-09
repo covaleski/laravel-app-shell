@@ -8,20 +8,6 @@ use Illuminate\Support\ServiceProvider;
 class BladeServiceProvider extends ServiceProvider
 {
     /**
-     * Path for Blade views.
-     */
-    protected string $path;
-
-    /**
-     * Create the service provider instance.
-     */
-    public function __construct($app)
-    {
-        $this->path = dirname(dirname(__DIR__)) . '/resources/views';
-        return parent::__construct($app);
-    }
-
-    /**
      * Register services.
      */
     public function register(): void
@@ -33,6 +19,14 @@ class BladeServiceProvider extends ServiceProvider
      * Bootstrap services.
      */
     public function boot(): void
+    {
+        $this->bootBladeDirectives();
+    }
+
+    /**
+     * Bootstrap package Blade directives.
+     */
+    public function bootBladeDirectives(): void
     {
         Blade::directive('pwaLink', function (string $expression) {
             return <<<PHP
