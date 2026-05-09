@@ -2,19 +2,25 @@
 
 namespace Covaleski\LaravelPwa\Providers;
 
+use Covaleski\LaravelPwa\Routing\Router;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades;
 use Illuminate\Support\ServiceProvider;
 
 class PackageServiceProvider extends ServiceProvider
 {
     /**
-     * Path for Blade views.
+     * Package root path.
      */
     protected string $path;
 
     /**
      * Create the service provider instance.
+     *
+     * Adds the package vendor directory path for convenience.
      */
-    public function __construct($app)
+    public function __construct(Application $app)
     {
         $this->path = dirname(dirname(__DIR__));
         return parent::__construct($app);
@@ -34,6 +40,9 @@ class PackageServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->bootAssets();
+        $this->bootBladeDirectives();
+        $this->bootFacadeMacros();
+        $this->bootHelperMacros();
     }
 
     /**
@@ -44,6 +53,59 @@ class PackageServiceProvider extends ServiceProvider
         $this->publishes([
             "{$this->path}/config/pwa.php" => config_path('pwa.php'),
         ]);
+    }
+
+    /**
+     * Bootstrap package Blade directives.
+     */
+    public function bootBladeDirectives(): void
+    {
+        Facades\Blade::directive('pwaLink', function (string $expression) {
+            return <<<PHP
+                <?php attributes([
+                    'hx-get' => {$expression},
+                    'hx-push-url' => 'true',
+                ]); ?>
+                PHP;
+        });
+        Facades\Blade::directive('pwaShell', function (string $expression) {
+            return <<<PHP
+                <?= attributes(
+                    ['hx-headers' => '{"HX-Current-Shell": "' . \$shell . '"}'],
+                    config('pwa.attributes.shell'),
+                    {$expression}
+                ) ?>
+                PHP;
+        });
+        Facades\Blade::directive('pwaPage', function (string $expression) {
+            return <<<PHP
+                <?= attributes(config('pwa.attributes.page'), {$expression}) ?>
+                PHP;
+        });
+    }
+
+    /**
+     * Bootstrap package facade macros.
+     */
+    public function bootFacadeMacros(): void
+    {
+        Facades\Request::macro('htmx', function () {
+            /** @var Request $this */
+            return $this->hasHeader('HX-Request');
+        });
+        Facades\Route::macro('pwa', function (mixed ...$args) {
+            $args = array_replace(config('pwa.router', []), $args);
+            $router = new Router(...$args);
+            $router->route();
+        });
+    }
+
+    /**
+     * Boot package helper macros.
+     */
+    public function bootHelperMacros(): void
+    {
+        //
     }
 
     /**
