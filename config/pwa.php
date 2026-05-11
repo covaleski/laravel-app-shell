@@ -31,6 +31,7 @@ return [
         ],
 
         'shell' => [
+            'hx-history-elt' => 'hx-history-elt',
             'id' => 'shell',
         ],
 
