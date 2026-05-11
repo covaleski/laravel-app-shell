@@ -1,6 +1,5 @@
-<header>
-    <h2>Bookmarks</h2>
-</header>
-<main>
+<x-header title="Bookmarks">
+</x-header>
+<main class="container">
     <p>This page displays the current user's bookmarks.</p>
 </main>

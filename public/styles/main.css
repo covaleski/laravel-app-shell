@@ -1,3 +1,7 @@
 .clickable {
     cursor: pointer;
 }
+
+.htmx-request {
+    pointer-events: none;
+}

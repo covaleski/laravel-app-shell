@@ -1,7 +1,8 @@
 <x-header title="Post">
     <x-slot:dropdown>
-        <li><a class="dropdown-item" href="#">Copy Link</a></li>
-        <li><a class="dropdown-item" href="#">Share</a></li>
+        <x-dropdown-item label="Bookmark" href="#"/>
+        <x-dropdown-item label="Copy link" href="#"/>
+        <x-dropdown-item label="Share" href="#"/>
     </x-slot:dropdown>
 </x-header>
 <main class="container d-flex gap-2 flex-column flex-fill overflow-auto py-2">
