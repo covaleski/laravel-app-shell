@@ -1,12 +1,12 @@
-(A) Add `@pwaLink` Blade directive +Blade {cm:2026-04-26}
 (A) Add Blade directives for entrypoint views +Blade {cm:2026-04-22}
+(A) Replace directives components with merged attributes +Blade
 (B) Document entrypoints in README.md +Docs
 (B) Document inheritable options in README.md +Docs
 (B) Document inheritable shells in README.md +Docs
 (B) Document pages in README.md +Docs
 (B) Document routing in README.md +Docs
 (A) Release first version +Publishing
-(C) Add Bootstrap to the example app +Publishing
+(C) Add Bootstrap to the example app +Publishing {cm:2026-05-12}
 (A) Add manifest file +Pwa {cm:2026-05-01}
 (A) Cache entrypoint page +Pwa
 (B) Add middleware to generated routes +Routing {cm:2026-05-01}
