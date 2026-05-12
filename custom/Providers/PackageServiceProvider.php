@@ -64,14 +64,6 @@ class PackageServiceProvider extends ServiceProvider
      */
     public function bootBladeDirectives(): void
     {
-        Facades\Blade::directive('pwaLink', function (string $expression) {
-            return <<<PHP
-                <?php attributes([
-                    'hx-get' => {$expression},
-                    'hx-push-url' => 'true',
-                ]); ?>
-                PHP;
-        });
         Facades\Blade::directive('pwaShell', function (string $expression) {
             return <<<PHP
                 <?= attributes(
