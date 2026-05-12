@@ -1,15 +1,17 @@
 @props([
-    'backlink' => '',
+    'backToHome' => false,
     'dropdown' => '',
     'title' => 'Untitled',
 ])
 
 <header class="d-flex flex-grow-0 flex-shrink-0 bg-dark text-light">
     <nav class="d-flex gap-1 align-items-center flex-fill p-1">
-        @if($backlink)
+        @if($backToHome)
             <a  class="btn link-light"
-                href="{{ $backlink }}"
+                href="{{ $home->url }}"
                 aria-label="Back"
+                hx-on:click="htmx.setCurrent(htmx.find('#home-link'), 'active', 'page')"
+                hx-replace-url="true"
             >
                 <i class="bi bi-arrow-left fs-4"></i>
             </a>

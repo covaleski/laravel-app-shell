@@ -6,6 +6,7 @@
         <nav class="nav nav-pills nav-fill d-flex gap-2 flex-fill p-1">
             @foreach ($menus as $menu)
                 <a {{ attributes([
+                    'id' => $menu->home ? 'home-link' : null,
                     'class' => [
                         'nav-link',
                         'link-light',
@@ -18,8 +19,8 @@
                     'data-bs-trigger' => 'hover',
                     'aria-label' => $menu->label,
                     'aria-current' => $menu->active ? 'page' : null,
-                    'hx-indicator' => '#app',
-                    'hx-on:htmx:after-request' => 'htmx.setCurrent(this, "active", "page")',
+                    'hx-on:click' => 'htmx.setCurrent(this, "active", "page")',
+                    'hx-replace-url' => "true"
                 ]) }}>
                     <i class="bi bi-{{ $menu->icon }} fs-4"></i>
                 </a>

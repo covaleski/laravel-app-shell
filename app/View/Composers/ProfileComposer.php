@@ -31,22 +31,17 @@ class ProfileComposer
      */
     public function compose(View $view): void
     {
-        $view->with('menus', collect([
+        // Create menu objects.
+        $menus = collect([
             $this->menu('pwa.posts', 'Home', 'house'),
             $this->menu('pwa.bookmarks', 'Saved', 'bookmarks'),
             $this->menu('pwa.alerts', 'Alerts', 'bell'),
             $this->menu('pwa.account', 'Account', 'person-gear'),
-        ])->tap($this->activate(...)));
-    }
-
-    /**
-     * Update the `active` field of menu objects in the specified collection.
-     */
-    protected function activate(Collection $menus): void
-    {
+        ]);
+        // Set the active menu.
         $active = null;
         $route = str($this->request->route()->getName());
-        foreach ($menus as $menu) {
+        foreach ($menus as $i => $menu) {
             // Doesn't match that request route
             if (!$route->startsWith($menu->route)) {
                 continue;
@@ -64,6 +59,11 @@ class ProfileComposer
                 $active = $menu;
             }
         }
+        // Set the home menu.
+        $home = $menus->first();
+        $home->home = true;
+        // Add menus to the view.
+        $view->with(['menus' => $menus, 'home' => $home]);
     }
 
     /**
@@ -73,6 +73,7 @@ class ProfileComposer
     {
         return literal(
             active: false,
+            home: false,
             icon: $icon,
             label: $label,
             route: $route,
