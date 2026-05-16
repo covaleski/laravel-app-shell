@@ -1,11 +1,11 @@
 (A) Add Blade directives for entrypoint views +Blade {cm:2026-04-22}
-(A) Replace directives components with merged attributes +Blade
+(A) Replace directives components with merged attributes +Blade {cm:2026-05-16}
 (B) Document entrypoints in README.md +Docs
 (B) Document inheritable options in README.md +Docs
 (B) Document inheritable shells in README.md +Docs
 (B) Document pages in README.md +Docs
 (B) Document routing in README.md +Docs
-(A) Release first version +Publishing
+(A) Release first version +Publishing {cm:2026-05-16}
 (C) Add Bootstrap to the example app +Publishing {cm:2026-05-12}
 (A) Add manifest file +Pwa {cm:2026-05-01}
 (A) Cache entrypoint page +Pwa
