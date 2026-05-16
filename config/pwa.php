@@ -20,18 +20,9 @@ return [
             'id' => 'app',
         ],
 
-        'page' => [
-            'id' => 'page',
-        ],
-
         'placeholder' => [
             'hx-get' => '',
             'hx-trigger' => 'load from:window',
-            'id' => 'shell',
-        ],
-
-        'shell' => [
-            'hx-history-elt' => 'hx-history-elt',
             'id' => 'shell',
         ],
 
