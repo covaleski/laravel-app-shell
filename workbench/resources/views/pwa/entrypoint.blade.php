@@ -1,4 +1,4 @@
-@extends('layouts.entrypoint')
+@extends('pwa::entrypoint')
 
 @push('assets.preload')
     @bootstrap_css_preload
