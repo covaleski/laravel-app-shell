@@ -11,6 +11,10 @@ Install this package using the Composer package manager:
 composer require covaleski/laravel-pwa
 ```
 
+## Usage
+
+Documentation is pending.
+
 ## Motivation
 
 This package is a proof of concept that aims to assemble HTMX, Blade templates
