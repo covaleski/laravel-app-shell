@@ -53,7 +53,7 @@
     },
     "scripts": {
         "ci": [
-            "@post-autoload-dump",
+            "composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist",
             "@test"
         ],
         "post-autoload-dump": [
