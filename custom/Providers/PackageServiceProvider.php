@@ -39,10 +39,10 @@ class PackageServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->bootAssets();
-        $this->bootBladeDirectives();
         $this->bootFacadeMacros();
         $this->bootHelperMacros();
+        $this->bootBladeDirectives();
+        $this->bootAssets();
     }
 
     /**
@@ -50,6 +50,13 @@ class PackageServiceProvider extends ServiceProvider
      */
     protected function bootAssets(): void
     {
+        $this->mergeConfigFrom(
+            "{$this->path}/config/pwa.php",
+            'pwa',
+        );
+        $this->loadRoutesFrom(
+            "{$this->path}/routes/web.php",
+        );
         $this->loadViewsFrom(
             "{$this->path}/resources/views",
             'pwa',
