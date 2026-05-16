@@ -17,7 +17,10 @@ use Throwable;
 
 class Directory
 {
-    use HasFilePaths, HasRoutePaths, HasUriPaths, HasViewPaths;
+    use HasFilePaths;
+    use HasRoutePaths;
+    use HasUriPaths;
+    use HasViewPaths;
 
     /**
      * Resolved error view name.

@@ -29,7 +29,7 @@ class Page implements Responsable
          * Additional data.
          */
         protected array $data = [],
-    ){
+    ) {
         //
     }
 

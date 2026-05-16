@@ -67,7 +67,7 @@
         ],
         "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
         "build": "@php vendor/bin/testbench workbench:build --ansi",
-        "lint": "@php vendor/bin/pint --ansi",
+        "lint": "@php vendor/bin/pint --preset psr12 --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "test": "@php vendor/bin/phpunit -c ./ --color"
     },

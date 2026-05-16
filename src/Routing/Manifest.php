@@ -9,7 +9,9 @@ use Covaleski\LaravelPwa\Routing\Traits\HasUriPaths;
 
 class Manifest
 {
-    use HasFilePaths, HasRoutePaths, HasUriPaths;
+    use HasFilePaths;
+    use HasRoutePaths;
+    use HasUriPaths;
 
     /**
      * Resolved manifest data.

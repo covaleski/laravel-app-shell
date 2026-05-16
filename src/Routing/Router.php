@@ -10,7 +10,9 @@ use Illuminate\Routing\Route;
 
 class Router
 {
-    use HasRoutePaths, HasUriPaths, HasViewPaths;
+    use HasRoutePaths;
+    use HasUriPaths;
+    use HasViewPaths;
 
     /**
      * Base directory for the PWA page views.
