@@ -1,7 +1,7 @@
-<div class="shell d-flex flex-column align-items-stretch" @pwaShell()>
-    <main class="d-flex flex-column flex-fill overflow-auto" @pwaPage()>
+<x-pwa::shell class="shell d-flex flex-column align-items-stretch">
+    <x-pwa::page class="d-flex flex-column flex-fill overflow-auto">
         {!! $page !!}
-    </main>
+    </x-pwa::page>
     <aside class="d-flex flex-grow-0 flex-shrink-0 bg-dark">
         <nav class="nav nav-pills nav-fill d-flex gap-2 flex-fill p-1">
             @foreach ($menus as $menu)
@@ -27,4 +27,4 @@
             @endforeach
         </ul>
     </aside>
-</div>
+</x-pwa::shell>

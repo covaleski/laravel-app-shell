@@ -1,13 +1,12 @@
 @use(Symfony\Component\HttpKernel\Exception\HttpExceptionInterface)
 
-<div @pwaPage()
-    style="display: flex;
-           flex-direction: column;
-           justify-content: center;
-           align-items: center;
-           width: 100%;
-           height: 100%;
-           overflow: hidden;"
+<x-pwa::page style="display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;"
 >
     <dl>
         @if($error instanceof HttpExceptionInterface)

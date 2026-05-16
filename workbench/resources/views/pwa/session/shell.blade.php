@@ -1,10 +1,10 @@
-<div class="shell" @pwaShell()>
-    <main @pwaPage()>
+<x-pwa::shell class="shell">
+    <x-pwa::page>
         {!! $page !!}
-    </main>
+    </x-pwa::page>
     <footer>
         <div>
             This is the <strong>blank</strong> shell from {{ date('H:i:s') }}.
         </div>
     </footer>
-</div>
+</x-pwa::shell>

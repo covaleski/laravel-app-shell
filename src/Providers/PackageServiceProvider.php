@@ -41,7 +41,7 @@ class PackageServiceProvider extends ServiceProvider
     {
         $this->bootFacadeMacros();
         $this->bootHelperMacros();
-        $this->bootBladeDirectives();
+        $this->bootBlade();
         $this->bootAssets();
     }
 
@@ -69,22 +69,12 @@ class PackageServiceProvider extends ServiceProvider
     /**
      * Bootstrap package Blade directives.
      */
-    public function bootBladeDirectives(): void
+    public function bootBlade(): void
     {
-        Facades\Blade::directive('pwaShell', function (string $expression) {
-            return <<<PHP
-                <?= attributes(
-                    ['hx-headers' => '{"HX-Current-Shell": "' . \$shell . '"}'],
-                    config('pwa.attributes.shell'),
-                    {$expression}
-                ) ?>
-                PHP;
-        });
-        Facades\Blade::directive('pwaPage', function (string $expression) {
-            return <<<PHP
-                <?= attributes(config('pwa.attributes.page'), {$expression}) ?>
-                PHP;
-        });
+        Facades\Blade::anonymousComponentPath(
+            "{$this->path}/resources/views/components",
+            'pwa',
+        );
     }
 
     /**
