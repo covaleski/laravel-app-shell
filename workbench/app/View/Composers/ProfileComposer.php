@@ -30,6 +30,7 @@ class ProfileComposer
      */
     public function compose(View $view): void
     {
+        if (!$this->request->route()) return;
         // Create menu objects.
         $menus = collect([
             $this->menu('pwa.posts', 'Home', 'house'),

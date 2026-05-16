@@ -35,12 +35,12 @@ class Options
     public function merge(Options $options): static
     {
         $merged = $this->clone();
-        $merged->middleware = array_unique(
+        $merged->middleware = array_values(array_unique(
             array_merge(
                 $merged->middleware,
                 $options->middleware,
             ),
-        );
+        ));
         $merged->where = array_replace(
             $merged->where,
             $options->where,
