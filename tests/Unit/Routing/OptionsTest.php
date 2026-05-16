@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\View;
+namespace Tests\Unit\Routing;
 
 use Covaleski\LaravelPwa\Routing\Options;
 use PHPUnit\Framework\TestCase;

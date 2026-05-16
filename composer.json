@@ -34,10 +34,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Covaleski\\LaravelPwa\\": "custom/"
+            "Covaleski\\LaravelPwa\\": "src/"
         },
         "files": [
-            "custom/functions.php"
+            "src/functions.php"
         ]
     },
     "autoload-dev": {

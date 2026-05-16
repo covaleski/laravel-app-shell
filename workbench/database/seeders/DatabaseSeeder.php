@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Workbench\Database\Seeders;
 
 use Workbench\App\Models\Post;
 use Workbench\App\Models\User;
