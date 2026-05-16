@@ -51,7 +51,7 @@ class PackageServiceProvider extends ServiceProvider
     protected function bootAssets(): void
     {
         $this->loadViewsFrom(
-            "{$this->path}/resources/views/default",
+            "{$this->path}/resources/views",
             'pwa',
         );
         $this->publishes([
