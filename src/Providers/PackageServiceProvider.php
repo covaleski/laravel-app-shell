@@ -74,6 +74,20 @@ class PackageServiceProvider extends ServiceProvider
             "{$this->path}/resources/views/components",
             'pwa',
         );
+        Facades\Blade::directive('attributes', function (string $expression) {
+            return <<<PHP
+                <?= (new \Illuminate\View\ComponentAttributeBag())->merge(
+                    \Illuminate\Support\Arr::map(
+                        {$expression},
+                        fn (\$v, \$k) => match (\$k) {
+                            'class' => \Illuminate\Support\Arr::toCssClasses(\$v),
+                            'style' => \Illuminate\Support\Arr::toCssStyles(\$v),
+                            default => \$v,
+                        },
+                    ),
+                ); ?>
+                PHP;
+        });
     }
 
     /**

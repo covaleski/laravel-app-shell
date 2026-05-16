@@ -20,12 +20,12 @@
         @show
         @yield('head.end')
     </head>
-    <body {{ attributes(config('pwa.attributes.container')) }}>
+    <body @attributes(config('pwa.attributes.container'))>
         @yield('body.start')
-        <div {{ attributes(config('pwa.attributes.placeholder')) }}></div>
+        <div @attributes(config('pwa.attributes.placeholder'))></div>
         @yield('body.end')
         @section('scripts')
-            <script {{ attributes(config('pwa.attributes.script')) }}></script>
+            <script @attributes(config('pwa.attributes.script'))></script>
             @stack('scripts')
         @show
     </body>

@@ -5,7 +5,7 @@
     <aside class="d-flex flex-grow-0 flex-shrink-0 bg-dark">
         <nav class="nav nav-pills nav-fill d-flex gap-2 flex-fill p-1">
             @foreach ($menus as $menu)
-                <a {{ attributes([
+                <a @attributes([
                     'id' => $menu->home ? 'home-link' : null,
                     'class' => [
                         'nav-link',
@@ -21,7 +21,7 @@
                     'aria-current' => $menu->active ? 'page' : null,
                     'hx-on:click' => 'htmx.setCurrent(this, "active", "page")',
                     'hx-replace-url' => "true"
-                ]) }}>
+                ])>
                     <i class="bi bi-{{ $menu->icon }} fs-4"></i>
                 </a>
             @endforeach
