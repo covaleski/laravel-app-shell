@@ -16,7 +16,7 @@ class Router
     use UsesRelativeViewPaths;
 
     /**
-     * Base directory for the PWA page views.
+     * Base directory for the PWA views.
      */
     protected string $directory;
 
@@ -59,28 +59,34 @@ class Router
     }
 
     /**
-     * Add all necessary routes to the application.
+     * Add the PWA routes to the application.
      */
     public function route(): void
     {
         $file_path = $this->directory ?? $this->findDirectory();
         $view_path = $this->viewPrefix ?? $this->findViewPrefix();
-        $this->routeDirectory(tap(new Directory(
+        $manifest = new Manifest(
+            file_path: $file_path,
+            route_path: $this->routePrefix,
+            uri_path: $this->uriPrefix,
+        );
+        $directory = new Directory(
             file_path: $file_path,
             entrypointView: $this->entrypointView,
-            manifest: tap(new Manifest(
-                file_path: $file_path,
-                route_path: $this->routePrefix,
-                uri_path: $this->uriPrefix,
-            ), $this->routeManifest(...)),
+            manifest: $manifest,
             route_name: $this->routePrefix,
             uri_path: $this->uriPrefix,
             view_path: $view_path,
-        ), $this->routeFallback(...)));
+        );
+        $this->routeManifest($manifest);
+        $this->routeFallback($directory);
+        $this->routeDirectory($directory);
     }
 
     /**
      * Set the PWA root directory path for recursive routing.
+     *
+     * Defaults to the entrypoint view directory.
      */
     public function setDirectory(string $directory): static
     {
@@ -89,9 +95,7 @@ class Router
     }
 
     /**
-     * Sets the entrypoint view of the PWA.
-     *
-     * Uses the entrypoint directory for recursive routing by default.
+     * Sets the entrypoint view for the PWA.
      */
     public function setEntrypoint(string $view): static
     {
