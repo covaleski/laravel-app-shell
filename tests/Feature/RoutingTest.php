@@ -11,7 +11,7 @@ class RoutingTest extends TestCase
      */
     public function test_the_pwa_home_page_exists(): void
     {
-        $response = $this->get('/app/posts');
+        $response = $this->get('/posts');
 
         $response->assertStatus(200);
     }

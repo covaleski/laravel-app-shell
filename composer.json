@@ -57,9 +57,6 @@
             "@clear",
             "@prepare"
         ],
-        "post-install-cmd": [
-            "@php vendor/bin/testbench key:generate"
-        ],
         "rebuild": [
             "@post-autoload-dump",
             "@build"
