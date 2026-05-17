@@ -2,7 +2,6 @@
 
 namespace Covaleski\LaravelPwa\Providers;
 
-use Covaleski\LaravelPwa\Routing\Router;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades;
@@ -84,11 +83,6 @@ class PackageServiceProvider extends ServiceProvider
         Facades\Request::macro('htmx', function () {
             /** @var Request $this */
             return $this->hasHeader('HX-Request');
-        });
-        Facades\Route::macro('pwa', function (mixed ...$args) {
-            $args = array_replace(config('pwa.router', []), $args);
-            $router = new Router(...$args);
-            $router->route();
         });
     }
 

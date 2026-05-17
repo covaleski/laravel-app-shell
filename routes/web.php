@@ -1,5 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Covaleski\LaravelPwa\Routing\Router;
 
-Route::pwa();
+(new Router('pwa', '/app', 'pwa'))->route();
