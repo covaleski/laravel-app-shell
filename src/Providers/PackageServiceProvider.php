@@ -2,6 +2,7 @@
 
 namespace Covaleski\LaravelPwa\Providers;
 
+use Covaleski\LaravelPwa\Services;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades;
@@ -13,6 +14,15 @@ class PackageServiceProvider extends ServiceProvider
      * Package root path.
      */
     protected string $path;
+
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array<string, string>
+     */
+    public array $singletons = [
+        Services\PwaService::class => Services\PwaService::class,
+    ];
 
     /**
      * Create the service provider instance.

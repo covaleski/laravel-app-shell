@@ -7,6 +7,8 @@ use Covaleski\LaravelPwa\Traits\UsesRelativeRoutePaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeUriPaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeViewPaths;
 use Illuminate\Routing\Route;
+use Illuminate\Routing\Router as LaravelRouter;
+use Illuminate\View\Factory;
 use RuntimeException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -25,6 +27,23 @@ class Router
      * Entrypoint view name.
      */
     protected string $entrypointView;
+
+    /**
+     * Create the router instance.
+     */
+    public function __construct(
+        /**
+         * View factory.
+         */
+        protected Factory $viewFactory,
+
+        /**
+         * Laravel router.
+         */
+        protected LaravelRouter $laravelRouter,
+    ) {
+        //
+    }
 
     /**
      * Set the prefix for PWA route names.
@@ -65,7 +84,7 @@ class Router
     public function route(): void
     {
         $this->routeFallback();
-        if (view()->exists($this->entrypointView)) {
+        if ($this->viewFactory->exists($this->entrypointView)) {
             $this->routeManifest($manifest = $this->makeManifest());
             $this->routeDirectory($this->makeDirectory($manifest));
         }
@@ -101,7 +120,7 @@ class Router
         array $middleware = [],
         array $where = [],
     ): Route {
-        return app('router')
+        return $this->laravelRouter
             ->any($uri, $callback)
             ->name($route_name)
             ->where($where)
@@ -113,7 +132,7 @@ class Router
      */
     protected function findDirectory(): string
     {
-        $view = view($this->entrypointView);
+        $view = $this->viewFactory->make($this->entrypointView);
         if (!($view instanceof \Illuminate\View\View)) {
             throw new RuntimeException('Expected entrypoint to be a view');
         }
