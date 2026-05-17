@@ -64,24 +64,11 @@ class Router
      */
     public function route(): void
     {
-        $file_path = $this->directory ?? $this->findDirectory();
-        $view_path = $this->viewPrefix ?? $this->findViewPrefix();
-        $manifest = new Manifest(
-            file_path: $file_path,
-            route_path: $this->routePrefix,
-            uri_path: $this->uriPrefix,
-        );
-        $directory = new Directory(
-            file_path: $file_path,
-            entrypointView: $this->entrypointView,
-            manifest: $manifest,
-            route_name: $this->routePrefix,
-            uri_path: $this->uriPrefix,
-            view_path: $view_path,
-        );
-        $this->routeManifest($manifest);
         $this->routeFallback();
-        $this->routeDirectory($directory);
+        if (view()->exists($this->entrypointView)) {
+            $this->routeManifest($manifest = $this->makeManifest());
+            $this->routeDirectory($this->makeDirectory($manifest));
+        }
     }
 
     /**
@@ -149,6 +136,33 @@ class Router
         return function () {
             throw new NotFoundHttpException();
         };
+    }
+
+    /**
+     * Create a directory instance for the current router state.
+     */
+    protected function makeDirectory(Manifest $manifest): Directory
+    {
+        return new Directory(
+            file_path: $this->directory ?? $this->findDirectory(),
+            entrypointView: $this->entrypointView,
+            manifest: $manifest,
+            route_name: $this->routePrefix,
+            uri_path: $this->uriPrefix,
+            view_path: $this->viewPrefix ?? $this->findViewPrefix(),
+        );
+    }
+
+    /**
+     * Create a manifest instance for the current router state.
+     */
+    protected function makeManifest(): Manifest
+    {
+        return new Manifest(
+            file_path: $this->directory ?? $this->findDirectory(),
+            route_path: $this->routePrefix,
+            uri_path: $this->uriPrefix,
+        );
     }
 
     /**
