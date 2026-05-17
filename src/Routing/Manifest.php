@@ -53,6 +53,19 @@ class Manifest
     }
 
     /**
+     * Get the manifest fallback data.
+     */
+    public function getDefaultData(): array
+    {
+        return [
+            'short_name' => config('app.name'),
+            'name' => config('app.name'),
+            'start_url' => '.',
+            'display' => 'standalone',
+        ];
+    }
+
+    /**
      * Get the manifest file route name.
      */
     public function getRouteName(): string
@@ -73,6 +86,7 @@ class Manifest
      */
     protected function resolveData(): array
     {
-        return require $this->prefixFilePath('manifest.php');
+        $path = $this->prefixFilePath('manifest.php');
+        return file_exists($path) ? require $path : $this->getDefaultData();
     }
 }
