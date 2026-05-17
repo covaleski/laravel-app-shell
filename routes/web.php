@@ -1,5 +1,7 @@
 <?php
 
-use Covaleski\LaravelPwa\Routing\Router;
-
-(new Router('pwa', '/app', 'pwa'))->route();
+(new \Covaleski\LaravelPwa\Routing\Router())
+    ->prefixRoutes('pwa')
+    ->prefixUri('/app')
+    ->setEntrypoint('pwa.entrypoint')
+    ->route();

@@ -7,6 +7,7 @@ use Covaleski\LaravelPwa\Traits\UsesRelativeRoutePaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeUriPaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeViewPaths;
 use Illuminate\Routing\Route;
+use RuntimeException;
 
 class Router
 {
@@ -25,29 +26,36 @@ class Router
     protected string $entrypointView;
 
     /**
-     * Create the router instance.
+     * Set the prefix for PWA route names.
+     *
+     * The PWA routes will be named `$prefix` + `".path.to.route"`.
      */
-    public function __construct(
-        /**
-         * Prefix for the PWA route names.
-         */
-        string $route_prefix,
+    public function prefixRoutes(string $prefix): static
+    {
+        $this->routePrefix = $this->trimRoutePath($prefix);
+        return $this;
+    }
 
-        /**
-         * Initial URI path for the PWA.
-         */
-        string $uri,
+    /**
+     * Set the prefix for PWA URI paths.
+     *
+     * The PWA actions will be routed as `$prefix` + `"/path/to/page"`.
+     */
+    public function prefixUri(string $prefix): static
+    {
+        $this->uriPrefix = $this->trimUriPath($prefix);
+        return $this;
+    }
 
-        /**
-         * Base path for the PWA page views.
-         */
-        string $view_root,
-    ) {
-        $this->routePrefix = $this->trimRoutePath($route_prefix);
-        $this->uriPrefix = $this->trimUriPath($uri);
-        $this->viewPrefix = $this->trimViewPath($view_root);
-        $this->entrypointView = $this->resolveEntrypointView();
-        $this->directory = $this->resolveDirectory($this->entrypointView);
+    /**
+     * Set the prefix for PWA view paths.
+     *
+     * The PWA actions will be routed as `$prefix` + `".path.to.view"`.
+     */
+    public function prefixViews(string $prefix): static
+    {
+        $this->viewPrefix = $this->trimViewPath($prefix);
+        return $this;
     }
 
     /**
@@ -55,24 +63,46 @@ class Router
      */
     public function route(): void
     {
+        $file_path = $this->directory ?? $this->findDirectory();
+        $view_path = $this->viewPrefix ?? $this->findViewPrefix();
         $this->routeDirectory(tap(new Directory(
-            file_path: $this->directory,
+            file_path: $file_path,
             entrypointView: $this->entrypointView,
             manifest: tap(new Manifest(
-                file_path: $this->directory,
+                file_path: $file_path,
                 route_path: $this->routePrefix,
                 uri_path: $this->uriPrefix,
             ), $this->routeManifest(...)),
             route_name: $this->routePrefix,
             uri_path: $this->uriPrefix,
-            view_path: $this->viewPrefix,
+            view_path: $view_path,
         ), $this->routeFallback(...)));
+    }
+
+    /**
+     * Set the PWA root directory path for recursive routing.
+     */
+    public function setDirectory(string $directory): static
+    {
+        $this->directory = $directory;
+        return $this;
+    }
+
+    /**
+     * Sets the entrypoint view of the PWA.
+     *
+     * Uses the entrypoint directory for recursive routing by default.
+     */
+    public function setEntrypoint(string $view): static
+    {
+        $this->entrypointView = $view;
+        return $this;
     }
 
     /**
      * Add a route to the application.
      */
-    public function addRoute(
+    protected function addRoute(
         string $uri,
         Closure $callback,
         string $route_name,
@@ -87,21 +117,23 @@ class Router
     }
 
     /**
-     * Get the router's initial directory.
+     * Get the router's directory using the entrypoint view file.
      */
-    protected function resolveDirectory(string $entrypoint_view): string
+    protected function findDirectory(): string
     {
-        /** @var \Illuminate\View\View */
-        $view = view($entrypoint_view);
+        $view = view($this->entrypointView);
+        if (!($view instanceof \Illuminate\View\View)) {
+            throw new RuntimeException('Expected entrypoint to be a view');
+        }
         return dirname($view->getPath());
     }
 
     /**
-     * Get the entrypoint view.
+     * Get the router's view prefix using the entrypoint view file.
      */
-    protected function resolveEntrypointView(): string
+    protected function findViewPrefix(): string
     {
-        return $this->prefixViewPath('entrypoint');
+        return str($this->entrypointView)->beforeLast('.')->toString();
     }
 
     /**
@@ -121,7 +153,7 @@ class Router
      */
     protected function routeDirectory(Directory $directory): void
     {
-        if ($directory->UsesRelativePage()) {
+        if ($directory->hasPage()) {
             $this->addRoute(
                 uri: $directory->getUri(),
                 route_name: $directory->getRouteName(),
