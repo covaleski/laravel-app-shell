@@ -3,6 +3,7 @@
 namespace Covaleski\LaravelPwa\Routing;
 
 use Closure;
+use Covaleski\LaravelPwa\Support\Manifest as ManifestData;
 use Covaleski\LaravelPwa\Traits\UsesRelativeFilePaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeRoutePaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeUriPaths;
@@ -16,7 +17,7 @@ class Manifest
     /**
      * Resolved manifest data.
      */
-    protected array $data;
+    protected ManifestData $data;
 
     /**
      * Create the manifest instance.
@@ -47,7 +48,7 @@ class Manifest
     /**
      * Get the manifest data.
      */
-    public function getData(): array
+    public function getData(): ManifestData
     {
         return $this->data;
     }
@@ -55,14 +56,13 @@ class Manifest
     /**
      * Get the manifest fallback data.
      */
-    public function getDefaultData(): array
+    public function getDefaultData(): ManifestData
     {
-        return [
-            'short_name' => config('app.name'),
-            'name' => config('app.name'),
-            'start_url' => '.',
-            'display' => 'standalone',
-        ];
+        return (new ManifestData())
+            ->name(config('app.name'))
+            ->shortName(config('app.name'))
+            ->startUrl('.')
+            ->display('standalone');
     }
 
     /**
@@ -84,7 +84,7 @@ class Manifest
     /**
      * Load the manifest data.
      */
-    protected function resolveData(): array
+    protected function resolveData(): ManifestData
     {
         $path = $this->prefixFilePath('manifest.php');
         return file_exists($path) ? require $path : $this->getDefaultData();

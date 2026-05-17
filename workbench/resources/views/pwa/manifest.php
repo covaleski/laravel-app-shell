@@ -1,24 +1,11 @@
 <?php
 
-return [
-    'short_name' => config('app.name'),
-    'name' => config('app.name'),
-    'icons' => [
-        [
-            'src' => asset('assets/icon.48x48.png'),
-            'sizes' => '48x48',
-            'type' => 'image/png',
-            'purpose' => 'any',
-        ],
-        [
-            'src' => asset('assets/icon.512x512.png'),
-            'sizes' => '512x512',
-            'type' => 'image/png',
-            'purpose' => 'any',
-        ],
-    ],
-    'start_url' => '.',
-    'display' => 'standalone',
-    'theme_color' => 'black',
-    'background_color' => 'white',
-];
+return (new \Covaleski\LaravelPwa\Support\Manifest())
+    ->name(config('app.name'))
+    ->shortName(config('app.name'))
+    ->icon(asset('assets/icon.48x48.png'), '48x48', 'image/png', 'any')
+    ->icon(asset('assets/icon.512x512.png'), '512x512', 'image/png', 'any')
+    ->startUrl('.')
+    ->display('standalone')
+    ->themeColor('black')
+    ->backgroundColor('white');
