@@ -1,5 +1,8 @@
 laravel: '@testbench'
 
+env:
+  - APP_DEBUG=true
+
 providers:
   - Workbench\App\Providers\WorkbenchServiceProvider
   - Covaleski\LaravelPwa\Providers\PackageServiceProvider
