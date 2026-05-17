@@ -135,24 +135,6 @@ class Directory
     }
 
     /**
-     * Get the fallback route callback.
-     */
-    public function getFallbackCallback(): Closure
-    {
-        return $this->makeCallback(function () {
-            throw new NotFoundHttpException();
-        });
-    }
-
-    /**
-     * Get the fallback route URI.
-     */
-    public function getFallbackUri(): string
-    {
-        return $this->prefixUriPath('{path?}');
-    }
-
-    /**
      * Get the page route middleware.
      */
     public function getMiddleware(): array

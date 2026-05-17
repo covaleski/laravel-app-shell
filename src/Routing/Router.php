@@ -8,6 +8,7 @@ use Covaleski\LaravelPwa\Traits\UsesRelativeUriPaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeViewPaths;
 use Illuminate\Routing\Route;
 use RuntimeException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Router
 {
@@ -79,7 +80,7 @@ class Router
             view_path: $view_path,
         );
         $this->routeManifest($manifest);
-        $this->routeFallback($directory);
+        $this->routeFallback();
         $this->routeDirectory($directory);
     }
 
@@ -141,6 +142,16 @@ class Router
     }
 
     /**
+     * Get the fallback route callback.
+     */
+    protected function getFallbackCallback(): Closure
+    {
+        return function () {
+            throw new NotFoundHttpException();
+        };
+    }
+
+    /**
      * Add a route for the application manifest file.
      */
     protected function routeManifest(Manifest $manifest): void
@@ -174,14 +185,13 @@ class Router
     /**
      * Add a fallback route for the application.
      */
-    protected function routeFallback(Directory $directory): void
+    protected function routeFallback(): void
     {
         $this->addRoute(
-            uri: $directory->getFallbackUri(),
-            route_name: $directory->getRouteName(),
-            callback: $directory->getFallbackCallback(),
-            middleware: $directory->getMiddleware(),
-            where: $directory->getWhere(),
+            uri: $this->prefixUriPath('{path?}'),
+            route_name: $this->prefixRoutePath('fallback'),
+            callback: $this->getFallbackCallback(),
+            where: ['path' => '.*'],
         )->fallback();
     }
 }
