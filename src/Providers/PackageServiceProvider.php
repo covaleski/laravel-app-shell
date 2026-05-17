@@ -41,17 +41,6 @@ class PackageServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->bootFacadeMacros();
-        $this->bootHelperMacros();
-        $this->bootBlade();
-        $this->bootAssets();
-    }
-
-    /**
-     * Bootstrap package assets.
-     */
-    protected function bootAssets(): void
-    {
         $this->loadRoutesFrom(
             "{$this->path}/routes/web.php",
         );
@@ -62,35 +51,13 @@ class PackageServiceProvider extends ServiceProvider
         $this->publishes([
             "{$this->path}/config/pwa.php" => config_path('pwa.php'),
         ]);
-    }
-
-    /**
-     * Bootstrap package Blade directives.
-     */
-    public function bootBlade(): void
-    {
         Facades\Blade::anonymousComponentPath(
             "{$this->path}/resources/views/components",
             'pwa',
         );
-    }
-
-    /**
-     * Bootstrap package facade macros.
-     */
-    public function bootFacadeMacros(): void
-    {
         Facades\Request::macro('htmx', function () {
             /** @var Request $this */
             return $this->hasHeader('HX-Request');
         });
-    }
-
-    /**
-     * Boot package helper macros.
-     */
-    public function bootHelperMacros(): void
-    {
-        //
     }
 }
