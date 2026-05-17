@@ -2,7 +2,7 @@
 
 namespace Covaleski\LaravelPwa\Services;
 
-use Covaleski\LaravelPwa\Routing\Router;
+use Covaleski\LaravelPwa\Routing\Registrar;
 use Illuminate\Foundation\Application;
 
 class PwaService
@@ -22,8 +22,8 @@ class PwaService
     /**
      * Get a new PWA registrar instance.
      */
-    public function newPwa(): Router
+    public function newPwa(): Registrar
     {
-        return $this->application->make(Router::class);
+        return $this->application->make(Registrar::class);
     }
 }

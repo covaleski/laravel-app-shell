@@ -7,12 +7,12 @@ use Covaleski\LaravelPwa\Traits\UsesRelativeRoutePaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeUriPaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeViewPaths;
 use Illuminate\Routing\Route;
-use Illuminate\Routing\Router as LaravelRouter;
+use Illuminate\Routing\Router;
 use Illuminate\View\Factory;
 use RuntimeException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class Router
+class Registrar
 {
     use UsesRelativeRoutePaths;
     use UsesRelativeUriPaths;
@@ -40,7 +40,7 @@ class Router
         /**
          * Laravel router.
          */
-        protected LaravelRouter $laravelRouter,
+        protected Router $router,
     ) {
         //
     }
@@ -81,7 +81,7 @@ class Router
     /**
      * Add the PWA routes to the application.
      */
-    public function route(): void
+    public function register(): void
     {
         $this->routeFallback();
         if ($this->viewFactory->exists($this->entrypointView)) {
@@ -120,7 +120,7 @@ class Router
         array $middleware = [],
         array $where = [],
     ): Route {
-        return $this->laravelRouter
+        return $this->router
             ->any($uri, $callback)
             ->name($route_name)
             ->where($where)
