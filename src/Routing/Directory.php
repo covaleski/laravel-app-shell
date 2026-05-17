@@ -104,11 +104,15 @@ class Directory
     /**
      * Get the page route callback.
      */
-    public function getCallback(): Closure
+    public function getCallback(): callable
     {
-        return $this->makeCallback(function () {
-            return new Page($this->pageView, $this->shellView);
-        });
+        return new Callback(
+            entrypointView: $this->entrypointView,
+            errorView: $this->errorView,
+            manifestRoute: $this->manifest->getRouteName(),
+            pageView: $this->pageView,
+            shellView: $this->shellView,
+        );
     }
 
     /**
@@ -199,28 +203,6 @@ class Directory
     protected function loadOptions(string $filename): ?object
     {
         return file_exists($filename) ? require $filename : null;
-    }
-
-    /**
-     * Create a route callback that handles content negotiation.
-     */
-    protected function makeCallback(Closure $callback): Closure
-    {
-        return function (Request $request) use ($callback) {
-            if ($request->htmx()) {
-                try {
-                    return app()->call($callback);
-                } catch (Throwable $error) {
-                    return new Page($this->errorView, $this->shellView, [
-                        'error' => $error,
-                    ]);
-                }
-            } else {
-                return view($this->entrypointView, [
-                    'manifest' => route($this->manifest->getRouteName()),
-                ]);
-            }
-        };
     }
 
     /**

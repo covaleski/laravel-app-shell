@@ -186,7 +186,7 @@ class Router
             $this->addRoute(
                 uri: $directory->getUri(),
                 route_name: $directory->getRouteName(),
-                callback: $directory->getCallback(),
+                callback: Closure::fromCallable($directory->getCallback()),
                 middleware: $directory->getMiddleware(),
                 where: $directory->getWhere(),
             );
