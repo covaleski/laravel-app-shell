@@ -3,7 +3,6 @@
 namespace Covaleski\LaravelPwa\Support;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Override;
 
 class Icon implements Arrayable
 {

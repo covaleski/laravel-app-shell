@@ -2,18 +2,13 @@
 
 namespace Covaleski\LaravelPwa\Routing;
 
-use Closure;
 use Covaleski\LaravelPwa\Traits\UsesRelativeFilePaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeRoutePaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeUriPaths;
 use Covaleski\LaravelPwa\Traits\UsesRelativeViewPaths;
 use Covaleski\LaravelPwa\View\Page;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Throwable;
 
 class Directory
 {
