@@ -6,8 +6,8 @@
         @yield('head.start')
         <title>@yield('title', config('app.name'))</title>
         @section('meta')
-            <meta charset="@yield('charset', 'UTF-8')"/>
-            <meta name="viewport" content="@yield('viewport', 'width=device-width, initial-scale=1')"/>
+            <meta charset="@yield('charset', config('pwa.charset'))"/>
+            <meta name="viewport" content="@yield('viewport', config('pwa.viewport'))"/>
             @stack('meta')
         @show
         @section('assets.preload')
