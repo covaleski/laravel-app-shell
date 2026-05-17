@@ -4,37 +4,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Entrypoint View Element Attributes
+    | Default HTMX Script Location
     |--------------------------------------------------------------------------
     |
-    | This option defines the default attributes for the main elements that
-    | compose the application entrypoint view.
+    | This option defines the default HTMX script URL.
     |
     */
 
-    'attributes' => [
-
-        'container' => [
-            'hx-boost' => 'true',
-            'hx-headers' => '{"HX-Current-Shell": "", "HX-Shell-Target": "#shell", "HX-Page-Target": "#page"}',
-            'id' => 'app',
-        ],
-
-        'placeholder' => [
-            'hx-get' => '',
-            'hx-trigger' => 'load from:window',
-            'id' => 'shell',
-        ],
-
-        'script' => [
-            'crossorigin' => 'anonymous',
-            'hash' => 'sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V',
-            'src' => 'https://cdn.jsdelivr.net/npm/htmx.org@2.0.10/dist/htmx.min.js',
-            'type' => 'text/javascript',
-            'defer' => 'defer',
-        ],
-
-    ],
+    'htmx' => 'https://cdn.jsdelivr.net/npm/htmx.org@2.0.10/dist/htmx.min.js',
 
     /*
     |--------------------------------------------------------------------------

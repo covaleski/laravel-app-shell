@@ -22,12 +22,23 @@
         @show
         @yield('head.end')
     </head>
-    <body @attributes(config('pwa.attributes.container'))>
+    <body id="app" hx-boost="true" hx-headers="{{ json_encode([
+        'HX-Current-Shell' => '',
+        'HX-Shell-Target' => '#shell',
+        'HX-Page-Target' => '#page',
+    ]) }}">
         @yield('body.start')
-        <div @attributes(config('pwa.attributes.placeholder'))></div>
+        <div id="shell" hx-get="" hx-trigger="load from:window"></div>
         @yield('body.end')
         @section('scripts')
-            <script @attributes(config('pwa.attributes.script'))></script>
+            <script
+                type="text/javascript"
+                src="{{ config('pwa.htmx') }}"
+                @if(request()->host() !== uri(config('pwa.htmx'))->host())
+                    crossorigin="anonymous"
+                @endif
+                defer="true"
+            ></script>
             @stack('scripts')
         @show
     </body>
