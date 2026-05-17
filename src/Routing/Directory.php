@@ -207,11 +207,7 @@ class Directory
     protected function makeCallback(Closure $callback): Closure
     {
         return function (Request $request) use ($callback) {
-            if (!$request->acceptsHtml()) {
-                throw new NotAcceptableHttpException(
-                    headers: [],
-                );
-            } elseif ($request->htmx()) {
+            if ($request->htmx()) {
                 try {
                     return app()->call($callback);
                 } catch (Throwable $error) {
