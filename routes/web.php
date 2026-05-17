@@ -1,3 +1,3 @@
 <?php
 
-app(\Covaleski\LaravelPwa\Services\PwaService::class)->register();
+\Covaleski\LaravelPwa\Support\Facades\Pwa::register();
