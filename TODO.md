@@ -8,8 +8,9 @@
 (B) Document inheritable shells in README.md +Docs
 (B) Document pages in README.md +Docs
 (B) Document routing in README.md +Docs
-(A) Release first version +Publishing {cm:2026-05-16}
-(C) Add Bootstrap to the example app +Publishing {cm:2026-05-12}
+(A) Release first version +Package {cm:2026-05-16}
+(C) Add Bootstrap to the example app +Package {cm:2026-05-12}
+(A) Replace `laravel/framework` by `illuminate/*` +Package
 (A) Add manifest file +Pwa {cm:2026-05-01}
 (A) Cache entrypoint page +Pwa
 (A) Create the Manifest support class +Pwa {cm:2026-05-17}
