@@ -64,6 +64,10 @@
             "@post-autoload-dump",
             "@build"
         ],
+        "retest": [
+            "@clear",
+            "@test"
+        ],
         "serve": [
             "Composer\\Config::disableProcessTimeout",
             "@build",
