@@ -51,9 +51,6 @@ class PackageServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadRoutesFrom(
-            "{$this->path}/routes/web.php",
-        );
         $this->loadViewsFrom(
             "{$this->path}/resources/views",
             'pwa',

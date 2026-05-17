@@ -31,9 +31,9 @@ class PwaService
      * Register a new PWA.
      */
     public function register(
-        string $entrypoint_view = 'pwa.entrypoint',
-        string $route_prefix = 'pwa',
-        string $uri = '/app',
+        string $entrypoint_view,
+        string $route_prefix,
+        string $uri,
     ): void {
         $this->newPwa()
             ->prefixRoutes($route_prefix)

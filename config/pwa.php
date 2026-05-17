@@ -26,22 +26,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Page Router Parameters
-    |--------------------------------------------------------------------------
-    |
-    | This option defines the default parameters when creating a page router
-    | instance from the `Route::pwa(...)` method.
-    |
-    */
-
-    'router' => [
-        'route_prefix' => 'pwa',
-        'uri' => '/app',
-        'view_root' => 'pwa',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Default Viewport Directive
     |--------------------------------------------------------------------------
     |

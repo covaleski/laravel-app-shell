@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static \Covaleski\LaravelPwa\Routing\Registrar newPwa()
- * @method static void register(string $entrypoint_view = 'pwa.entrypoint', string $route_prefix = 'pwa', string $uri = '/app')
+ * @method static void register(string $entrypoint_view, string $route_prefix, string $uri)
  *
  * @see \Covaleski\LaravelPwa\Services\PwaService
  */

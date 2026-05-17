@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use function Illuminate\Filesystem\join_paths;
 
+\Covaleski\LaravelPwa\Support\Facades\Pwa::register('pwa.entrypoint', 'pwa', '/');
+
 Route::get('assets/{asset}', function (string $asset) {
     $base_path = dirname(__DIR__);
     $filename = join_paths($base_path, 'resources', 'assets', $asset);
