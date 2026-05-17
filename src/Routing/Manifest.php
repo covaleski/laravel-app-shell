@@ -3,15 +3,15 @@
 namespace Covaleski\LaravelPwa\Routing;
 
 use Closure;
-use Covaleski\LaravelPwa\Routing\Traits\HasFilePaths;
-use Covaleski\LaravelPwa\Routing\Traits\HasRoutePaths;
-use Covaleski\LaravelPwa\Routing\Traits\HasUriPaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeFilePaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeRoutePaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeUriPaths;
 
 class Manifest
 {
-    use HasFilePaths;
-    use HasRoutePaths;
-    use HasUriPaths;
+    use UsesRelativeFilePaths;
+    use UsesRelativeRoutePaths;
+    use UsesRelativeUriPaths;
 
     /**
      * Resolved manifest data.

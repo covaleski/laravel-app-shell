@@ -1,8 +1,8 @@
 <?php
 
-namespace Covaleski\LaravelPwa\Routing\Traits;
+namespace Covaleski\LaravelPwa\Traits;
 
-trait HasRoutePaths
+trait UsesRelativeRoutePaths
 {
     /**
      * Route name prefix.

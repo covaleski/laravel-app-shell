@@ -3,16 +3,16 @@
 namespace Covaleski\LaravelPwa\Routing;
 
 use Closure;
-use Covaleski\LaravelPwa\Routing\Traits\HasRoutePaths;
-use Covaleski\LaravelPwa\Routing\Traits\HasUriPaths;
-use Covaleski\LaravelPwa\Routing\Traits\HasViewPaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeRoutePaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeUriPaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeViewPaths;
 use Illuminate\Routing\Route;
 
 class Router
 {
-    use HasRoutePaths;
-    use HasUriPaths;
-    use HasViewPaths;
+    use UsesRelativeRoutePaths;
+    use UsesRelativeUriPaths;
+    use UsesRelativeViewPaths;
 
     /**
      * Base directory for the PWA page views.
@@ -121,7 +121,7 @@ class Router
      */
     protected function routeDirectory(Directory $directory): void
     {
-        if ($directory->hasPage()) {
+        if ($directory->UsesRelativePage()) {
             $this->addRoute(
                 uri: $directory->getUri(),
                 route_name: $directory->getRouteName(),

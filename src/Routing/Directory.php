@@ -3,10 +3,10 @@
 namespace Covaleski\LaravelPwa\Routing;
 
 use Closure;
-use Covaleski\LaravelPwa\Routing\Traits\HasFilePaths;
-use Covaleski\LaravelPwa\Routing\Traits\HasRoutePaths;
-use Covaleski\LaravelPwa\Routing\Traits\HasUriPaths;
-use Covaleski\LaravelPwa\Routing\Traits\HasViewPaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeFilePaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeRoutePaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeUriPaths;
+use Covaleski\LaravelPwa\Traits\UsesRelativeViewPaths;
 use Covaleski\LaravelPwa\View\Page;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
@@ -17,10 +17,10 @@ use Throwable;
 
 class Directory
 {
-    use HasFilePaths;
-    use HasRoutePaths;
-    use HasUriPaths;
-    use HasViewPaths;
+    use UsesRelativeFilePaths;
+    use UsesRelativeRoutePaths;
+    use UsesRelativeUriPaths;
+    use UsesRelativeViewPaths;
 
     /**
      * Resolved error view name.
@@ -185,9 +185,9 @@ class Directory
     }
 
     /**
-     * Check whether the directory has a page view.
+     * Check whether the directory UsesRelative a page view.
      */
-    public function hasPage(): bool
+    public function UsesRelativePage(): bool
     {
         return view()->exists($this->pageView);
     }

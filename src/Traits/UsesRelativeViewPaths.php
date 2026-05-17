@@ -1,8 +1,8 @@
 <?php
 
-namespace Covaleski\LaravelPwa\Routing\Traits;
+namespace Covaleski\LaravelPwa\Traits;
 
-trait HasViewPaths
+trait UsesRelativeViewPaths
 {
     /**
      * View name prefix.

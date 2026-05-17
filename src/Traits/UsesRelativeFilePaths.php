@@ -1,8 +1,8 @@
 <?php
 
-namespace Covaleski\LaravelPwa\Routing\Traits;
+namespace Covaleski\LaravelPwa\Traits;
 
-trait HasFilePaths
+trait UsesRelativeFilePaths
 {
     /**
      * File path prefix.
@@ -16,7 +16,7 @@ trait HasFilePaths
     {
         return $this->filePrefix
             . DIRECTORY_SEPARATOR
-            . $this->trimRoutePath($path);
+            . $this->trimFilePath($path);
     }
 
     /**
@@ -24,6 +24,6 @@ trait HasFilePaths
      */
     protected function trimFilePath(string $path): string
     {
-        return rtrim($path, '\\/');
+        return rtrim($path, '\\/' . DIRECTORY_SEPARATOR);
     }
 }
