@@ -185,9 +185,9 @@ class Directory
     }
 
     /**
-     * Check whether the directory UsesRelative a page view.
+     * Check whether the directory has a page view.
      */
-    public function UsesRelativePage(): bool
+    public function hasPage(): bool
     {
         return view()->exists($this->pageView);
     }
