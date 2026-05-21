@@ -35,27 +35,27 @@ class ProfileComposer
         }
         // Create menu objects.
         $menus = collect([
-            $this->menu('pwa.posts', 'Home', 'house'),
-            $this->menu('pwa.bookmarks', 'Saved', 'bookmarks'),
-            $this->menu('pwa.alerts', 'Alerts', 'bell'),
-            $this->menu('pwa.account', 'Account', 'person-gear'),
+            $this->menu('/posts', 'Home', 'house'),
+            $this->menu('/bookmarks', 'Saved', 'bookmarks'),
+            $this->menu('/alerts', 'Alerts', 'bell'),
+            $this->menu('/account', 'Account', 'person-gear'),
         ]);
         // Set the active menu.
         $active = null;
-        $route = str($this->request->route()->getName());
-        foreach ($menus as $i => $menu) {
-            // Doesn't match that request route
-            if (!$route->startsWith($menu->route)) {
+        $path = str($this->request->path())->start('/')->rtrim('/');
+        foreach ($menus as $menu) {
+            // Doesn't match that request path
+            if (!$path->startsWith($menu->path)) {
                 continue;
             }
-            // First to match the request route
+            // First to match the request path
             if (!$active) {
                 $menu->active = true;
                 $active = $menu;
                 continue;
             }
-            // Matches the request route better
-            if (strlen($menu->route) > strlen($active->route)) {
+            // Matches the request path better
+            if (strlen($menu->path) > strlen($active->path)) {
                 $active->active = false;
                 $menu->active = true;
                 $active = $menu;
@@ -71,15 +71,15 @@ class ProfileComposer
     /**
      * Create a menu object.
      */
-    protected function menu(string $route, string $label, string $icon): stdClass
+    protected function menu(string $path, string $label, string $icon): stdClass
     {
         return literal(
             active: false,
             home: false,
             icon: $icon,
             label: $label,
-            route: $route,
-            url: route($route),
+            path: str($path)->start('/')->rtrim('/')->toString(),
+            url: url($path),
         );
     }
 }

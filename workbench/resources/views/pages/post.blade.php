@@ -1,3 +1,11 @@
+@php
+use Workbench\App\Models\Post;
+
+$post = Post::query()
+    ->where('slug', '=', request()->route('post'))
+    ->sole();
+@endphp
+
 <x-header title="Post">
     <x-slot:dropdown>
         <x-dropdown-item label="Bookmark" href="#"/>

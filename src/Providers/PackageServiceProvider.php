@@ -2,9 +2,8 @@
 
 namespace Covaleski\LaravelPwa\Providers;
 
-use Covaleski\LaravelPwa\Services;
+use Covaleski\LaravelPwa\Http\Middleware;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,15 +13,6 @@ class PackageServiceProvider extends ServiceProvider
      * Package root path.
      */
     protected string $path;
-
-    /**
-     * All of the container singletons that should be registered.
-     *
-     * @var array<string, string>
-     */
-    public array $singletons = [
-        Services\PwaService::class => Services\PwaService::class,
-    ];
 
     /**
      * Create the service provider instance.
@@ -40,10 +30,7 @@ class PackageServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(
-            "{$this->path}/config/pwa.php",
-            'pwa',
-        );
+        //
     }
 
     /**
@@ -55,16 +42,17 @@ class PackageServiceProvider extends ServiceProvider
             "{$this->path}/resources/views",
             'pwa',
         );
-        $this->publishes([
-            "{$this->path}/config/pwa.php" => config_path('pwa.php'),
-        ]);
         Facades\Blade::anonymousComponentPath(
             "{$this->path}/resources/views/components",
             'pwa',
         );
-        Facades\Request::macro('htmx', function () {
-            /** @var Request $this */
-            return $this->hasHeader('HX-Request');
-        });
+        Facades\Route::aliasMiddleware(
+            'pwa',
+            Middleware\FilterPwaRequest::class,
+        );
+        Facades\Route::aliasMiddleware(
+            'pwa.shell',
+            Middleware\FormatAppShellResponse::class,
+        );
     }
 }

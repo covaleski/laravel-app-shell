@@ -4,22 +4,22 @@
 ]) }}">
     <head>
         @yield('head.start')
-        <title>@yield('title', config('app.name'))</title>
-        @section('meta')
-            <meta charset="@yield('charset', config('pwa.charset'))"/>
-            <meta name="viewport" content="@yield('viewport', config('pwa.viewport'))"/>
-            @stack('meta')
+        @section('head.title')
+            <title>@yield('title', config('app.name'))</title>
         @show
-        @section('assets.preload')
-            @stack('assets.preload')
+        @section('head.charset')
+            <meta charset="@yield('charset', 'UTF-8')"/>
         @show
-        @section('assets')
+        @section('head.viewport')
+            <meta name="viewport" content="@yield('viewport', 'width=device-width, initial-scale=1')"/>
+        @show
+        @stack('meta')
+        @stack('links.preload')
+        @section('head.manifest')
             <link rel="manifest" type="application/manifest+json" href="{{ $manifest }}"/>
-            @stack('assets')
         @show
-        @section('styles')
-            @stack('styles')
-        @show
+        @stack('links')
+        @stack('styles')
         @yield('head.end')
     </head>
     <body id="app" hx-boost="true" hx-headers="{{ json_encode([
@@ -28,18 +28,18 @@
         'HX-Page-Target' => '#page',
     ]) }}">
         @yield('body.start')
-        <div id="shell" hx-get="" hx-trigger="load from:window"></div>
+        @section('body.placeholder')
+            <div id="shell" hx-get="" hx-trigger="load from:window"></div>
+        @show
         @yield('body.end')
-        @section('scripts')
+        @section('htmx')
             <script
                 type="text/javascript"
-                src="{{ config('pwa.htmx') }}"
-                @if(request()->host() !== uri(config('pwa.htmx'))->host())
-                    crossorigin="anonymous"
-                @endif
+                src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.10/dist/htmx.min.js"
+                crossorigin="anonymous"
                 defer="true"
             ></script>
-            @stack('scripts')
         @show
+        @stack('scripts')
     </body>
 </html>

@@ -1,11 +1,11 @@
 @extends('pwa::entrypoint')
 
-@push('assets.preload')
+@push('links.preload')
     @bootstrap_css_preload
     @bootstrap_icons_preload
 @endpush
 
-@push('assets')
+@push('links')
     @bootstrap_css
     @bootstrap_icons
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/main.css') }}"/>

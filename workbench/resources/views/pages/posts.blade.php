@@ -1,3 +1,9 @@
+@php
+use Workbench\App\Models\Post;
+
+$posts = Post::all(['title', 'slug', 'excerpt', 'created_at']);
+@endphp
+
 <header class="py-5">
     <h1 class="text-center">
         {{ config('app.name') }}
@@ -11,7 +17,7 @@
     @foreach ($posts as $post)
         <article
             class="card clickable mb-2"
-            hx-get="{{ route('pwa.posts.[post]', ['post' => $post->slug]) }}"
+            hx-get="{{ route('post', ['post' => $post->slug]) }}"
             hx-push-url="true"
         >
             <div class="card-body">

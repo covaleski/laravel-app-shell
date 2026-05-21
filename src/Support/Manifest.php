@@ -4,9 +4,12 @@ namespace Covaleski\LaravelPwa\Support;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
-class Manifest implements Arrayable, Jsonable
+class Manifest implements Arrayable, Jsonable, Responsable
 {
     /**
      * Initial background color.
@@ -152,5 +155,18 @@ class Manifest implements Arrayable, Jsonable
     public function toJson($options = 0)
     {
         return json_encode($this->toArray(), $options);
+    }
+
+    /**
+     * Create an HTTP response that represents the object.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function toResponse($request)
+    {
+        return response($this->toJson(), 200, [
+            'Content-Type' => 'application/manifest+json',
+        ]);
     }
 }
