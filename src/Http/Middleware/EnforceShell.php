@@ -1,13 +1,13 @@
 <?php
 
-namespace Covaleski\LaravelPwa\Http\Middleware;
+namespace Covaleski\LaravelAppShell\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\View\Factory;
 use Symfony\Component\HttpFoundation\Response;
 
-class FormatAppShellResponse
+class EnforceShell
 {
     /**
      * Create the middleware instance.

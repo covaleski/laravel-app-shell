@@ -1,11 +1,12 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "covaleski/laravel-pwa",
+    "name": "covaleski/laravel-app-shell",
     "type": "library",
-    "description": "A smooth PWA experience with nothing but Laravel and HTMX.",
+    "description": "A smooth app-shell architecture experience with nothing but Laravel and HTMX.",
     "keywords": [
         "laravel",
         "framework",
+        "app-shell",
         "pwa",
         "htmx"
     ],
@@ -34,7 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Covaleski\\LaravelPwa\\": "src/"
+            "Covaleski\\LaravelAppShell\\": "src/"
         }
     },
     "autoload-dev": {
@@ -79,7 +80,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Covaleski\\LaravelPwa\\Providers\\PackageServiceProvider"
+                "Covaleski\\LaravelAppShell\\Providers\\PackageServiceProvider"
             ]
         }
     },

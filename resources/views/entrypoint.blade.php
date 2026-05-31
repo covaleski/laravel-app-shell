@@ -15,9 +15,6 @@
         @show
         @stack('meta')
         @stack('links.preload')
-        @section('head.manifest')
-            <link rel="manifest" type="application/manifest+json" href="{{ $manifest }}"/>
-        @show
         @stack('links')
         @stack('styles')
         @yield('head.end')

@@ -1,8 +1,8 @@
 <?php
 
-namespace Covaleski\LaravelPwa\Providers;
+namespace Covaleski\LaravelAppShell\Providers;
 
-use Covaleski\LaravelPwa\Http\Middleware;
+use Covaleski\LaravelAppShell\Http\Middleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades;
 use Illuminate\Support\ServiceProvider;
@@ -40,19 +40,19 @@ class PackageServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(
             "{$this->path}/resources/views",
-            'pwa',
+            'app-shell',
         );
         Facades\Blade::anonymousComponentPath(
             "{$this->path}/resources/views/components",
-            'pwa',
+            'app-shell',
         );
         Facades\Route::aliasMiddleware(
-            'pwa',
-            Middleware\FilterPwaRequest::class,
+            'with-entrypoint',
+            Middleware\EnforceHtmx::class,
         );
         Facades\Route::aliasMiddleware(
-            'pwa.shell',
-            Middleware\FormatAppShellResponse::class,
+            'with-shell',
+            Middleware\EnforceShell::class,
         );
     }
 }

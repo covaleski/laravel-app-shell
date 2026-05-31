@@ -25,10 +25,10 @@ Route::get('/app.webmanifest', fn () => response(json_encode([
     'display' => 'standalone',
     'theme_color' => 'black',
     'background_color' => 'white',
-]), 200, ['Content-Type' => 'application/manifest+json']))->name('manifest');
+]), 200, ['Content-Type' => 'application/manifest+json']));
 
-Route::middleware('pwa:entrypoint,manifest')->group(function () {
-    Route::middleware('pwa.shell:shells.user')->group(function () {
+Route::middleware('with-entrypoint:entrypoint')->group(function () {
+    Route::middleware('app-shell:shell:shells.user')->group(function () {
         Route::view('/account', 'pages.account');
         Route::view('/alerts', 'pages.alerts');
         Route::view('/bookmarks', 'pages.bookmarks');
@@ -36,7 +36,7 @@ Route::middleware('pwa:entrypoint,manifest')->group(function () {
         Route::view('/posts/new', 'pages.new-post');
         Route::view('/posts/{post}', 'pages.post')->name('post');
     });
-    Route::middleware('pwa.shell:shells.blank')->group(function () {
+    Route::middleware('with-shell:shells.blank')->group(function () {
         Route::view('/', 'pages.home');
         Route::view('/session/login', 'pages.login');
         Route::view('/session/logout', 'pages.logout');

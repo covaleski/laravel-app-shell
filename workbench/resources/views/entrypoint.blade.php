@@ -1,4 +1,4 @@
-@extends('pwa::entrypoint')
+@extends('app-shell::entrypoint')
 
 @push('links.preload')
     @bootstrap_css_preload
@@ -10,6 +10,7 @@
     @bootstrap_icons
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/main.css') }}"/>
     <link rel="icon" type="image/png" href="{{ asset('assets/icon.48x48.png') }}"/>
+    <link rel="manifest" type="application/manifest+json" href="{{ url('/app.webmanifest') }}"/>
 @endpush
 
 @push('styles')
