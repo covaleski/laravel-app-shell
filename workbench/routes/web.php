@@ -37,6 +37,7 @@ Route::middleware('pwa:entrypoint,manifest')->group(function () {
         Route::view('/posts/{post}', 'pages.post')->name('post');
     });
     Route::middleware('pwa.shell:shells.blank')->group(function () {
+        Route::view('/', 'pages.home');
         Route::view('/session/login', 'pages.login');
         Route::view('/session/logout', 'pages.logout');
     });
