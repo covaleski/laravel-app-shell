@@ -3,6 +3,8 @@
 namespace Covaleski\LaravelAppShell\Providers;
 
 use Covaleski\LaravelAppShell\Http\Middleware;
+use Covaleski\LaravelAppShell\View\Directives\PageDirective;
+use Covaleski\LaravelAppShell\View\Directives\ShellDirective;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades;
 use Illuminate\Support\ServiceProvider;
@@ -49,6 +51,14 @@ class PackageServiceProvider extends ServiceProvider
         Facades\Blade::anonymousComponentPath(
             "{$this->path}/resources/views/components",
             'app-shell',
+        );
+        Facades\Blade::directive(
+            'page',
+            $this->app->make(PageDirective::class),
+        );
+        Facades\Blade::directive(
+            'shell',
+            $this->app->make(ShellDirective::class),
         );
         Facades\Route::aliasMiddleware(
             'with-entrypoint',
