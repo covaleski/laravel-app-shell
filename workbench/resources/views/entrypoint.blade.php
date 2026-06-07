@@ -9,8 +9,8 @@
     @bootstrap_css
     @bootstrap_icons
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/main.css') }}"/>
-    <link rel="icon" type="image/png" href="{{ asset('assets/icon.48x48.png') }}"/>
-    <link rel="manifest" type="application/manifest+json" href="{{ url('/app.webmanifest') }}"/>
+    <link rel="icon" type="image/png" href="{{ asset('assets/icon-48x48.png') }}"/>
+    <link rel="manifest" type="application/manifest+json" href="{{ asset('assets/app.webmanifest') }}"/>
 @endpush
 
 @push('styles')

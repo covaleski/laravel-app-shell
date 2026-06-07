@@ -2,31 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use function Illuminate\Filesystem\join_paths;
-
-Route::get('/app.webmanifest', fn () => response(json_encode([
-    'name' => config('app.name', ''),
-    'short_name' => config('app.name', ''),
-    'icons' => [
-        [
-            'src' => asset('assets/icon.48x48.png'),
-            'sizes' => '48x48',
-            'type' => 'image/png',
-            'purpose' => 'any',
-        ],
-        [
-            'src' => asset('assets/icon.512x512.png'),
-            'sizes' => '512x512',
-            'type' => 'image/png',
-            'purpose' => 'any',
-        ],
-    ],
-    'start_url' => '.',
-    'display' => 'standalone',
-    'theme_color' => 'black',
-    'background_color' => 'white',
-]), 200, ['Content-Type' => 'application/manifest+json']));
-
 Route::middleware('with-entrypoint:entrypoint')->group(function () {
     Route::middleware('with-shell:shells.user')->group(function () {
         Route::view('/account', 'pages.account');
@@ -42,18 +17,3 @@ Route::middleware('with-entrypoint:entrypoint')->group(function () {
         Route::view('/session/logout', 'pages.logout');
     });
 });
-
-Route::get('assets/{asset}', function (string $asset) {
-    $base_path = dirname(__DIR__);
-    $filename = join_paths($base_path, 'resources', 'assets', $asset);
-    if (!file_exists($filename)) {
-        return response("{$filename} not found.", 404);
-    }
-    return response(file_get_contents($filename), 200, [
-        'Content-Type' => match (str($asset)->afterLast('.')->toString()) {
-            'css' => 'text/css',
-            'js' => 'text/javascript',
-            'png' => 'image/png',
-        },
-    ]);
-})->where('asset', '([A-Za-z0-9_-]+\.)+(css|js|png)');
