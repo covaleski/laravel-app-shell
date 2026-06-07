@@ -1,13 +1,6 @@
 @extends('app-shell::entrypoint')
 
-@push('links.preload')
-    @bootstrap_css_preload
-    @bootstrap_icons_preload
-@endpush
-
 @push('links')
-    @bootstrap_css
-    @bootstrap_icons
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/main.css') }}"/>
     <link rel="icon" type="image/png" href="{{ asset('assets/icon-48x48.png') }}"/>
     <link rel="manifest" type="application/manifest+json" href="{{ asset('assets/app.webmanifest') }}"/>
@@ -40,11 +33,3 @@
 @section('body.end')
     <div id="overlay" class="overlay"></div>
 @endsection
-
-@push('scripts')
-    @bootstrap_js
-    <script type="text/javascript" src="{{ asset('assets/bootstrap.extend.js') }}" defer="defer">
-    </script>
-    <script type="text/javascript" src="{{ asset('assets/htmx.extend.js') }}" defer="defer">
-    </script>
-@endpush

@@ -15,7 +15,7 @@ class ShellSwapTest extends TestCase
 
     public function test_does_not_swap_the_shell_when_not_needed(): void
     {
-        $this->getHtmx('/', 'shells.blank')
+        $this->getHtmx('/', 'shells.default')
             ->assertOk()
             ->assertHeaderContains('Content-Type', 'text/html')
             ->assertHeader('HX-Retarget', '#page')
@@ -51,7 +51,7 @@ class ShellSwapTest extends TestCase
 
     /**
      * Visit the given URI with a GET request, expecting an HTMX response.
-     * 
+     *
      * @param string|Uri $uri
      * @param null|string $shell
      * @param array $headers
