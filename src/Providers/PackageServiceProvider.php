@@ -48,7 +48,7 @@ class PackageServiceProvider extends ServiceProvider
         );
         Facades\Route::aliasMiddleware(
             'with-entrypoint',
-            Middleware\EnforceHtmx::class,
+            Middleware\EnforceEntrypoint::class,
         );
         Facades\Route::aliasMiddleware(
             'with-shell',
