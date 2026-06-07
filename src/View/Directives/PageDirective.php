@@ -10,9 +10,9 @@ class PageDirective extends Directive
     public function compile(string $expression): string
     {
         return <<<PHP
-            <?php echo (new \Illuminate\View\ComponentAttributeBag([
+            <?php echo (new \Illuminate\View\ComponentAttributeBag())->merge([
                 'id' => 'page',
-            ]))->merge({$expression}) ?>
+            ])->merge({$expression}) ?>
             PHP;
     }
 }
