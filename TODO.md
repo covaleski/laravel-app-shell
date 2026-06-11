@@ -1,5 +1,5 @@
 (A) Document basic usage +Docs {cm:2026-06-07}
-(A) Replace `laravel/framework` by `illuminate/*` +Package
+(A) Replace `laravel/framework` by `illuminate/*` +Package {cm:2026-06-09}
 (A) Add feature test for entrypoints +Tests {cm:2026-05-31}
 (A) Add feature test for pages +Tests {cm:2026-05-31}
 (A) Add feature test for shells +Tests {cm:2026-05-31}
