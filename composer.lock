@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e293f562d1318d1f45de35013f56b50",
+    "content-hash": "c15f3c3dc9f3ca59d1f1702cfa0f9137",
     "packages": [
         {
             "name": "brick/math",
@@ -5869,75 +5869,6 @@
                 }
             ],
             "time": "2025-08-20T19:15:30+00:00"
-        },
-        {
-            "name": "covaleski/laravel-bootstrap-5",
-            "version": "v0.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/covaleski/laravel-bootstrap-5.git",
-                "reference": "f96eee3f09ad4e562cd6a16137879b6e8a59c463"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/covaleski/laravel-bootstrap-5/zipball/f96eee3f09ad4e562cd6a16137879b6e8a59c463",
-                "reference": "f96eee3f09ad4e562cd6a16137879b6e8a59c463",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^13.0",
-                "php": "^8.3"
-            },
-            "require-dev": {
-                "fakerphp/faker": "^1.23",
-                "laravel/pail": "^1.2.5",
-                "laravel/pint": "^1.27",
-                "laravel/tinker": "^3.0",
-                "mockery/mockery": "^1.6",
-                "nunomaduro/collision": "^8.6",
-                "phpunit/phpunit": "^12.5.12",
-                "twbs/bootstrap": "5.3.8"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Covaleski\\LaravelBootstrap5\\Providers\\PackageServiceProvider",
-                        "Covaleski\\LaravelBootstrap5\\Providers\\BladeServiceProvider",
-                        "Covaleski\\LaravelBootstrap5\\Providers\\HelperServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "custom/functions.php"
-                ],
-                "psr-4": {
-                    "Covaleski\\LaravelBootstrap5\\": "custom/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rafael Covaleski",
-                    "email": "covaleski23@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Bootstrap 5 components for Laravel.",
-            "keywords": [
-                "bootstrap",
-                "framework",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/covaleski/laravel-bootstrap-5/issues",
-                "source": "https://github.com/covaleski/laravel-bootstrap-5/tree/v0.4.0"
-            },
-            "time": "2026-05-03T17:44:16+00:00"
         },
         {
             "name": "fakerphp/faker",
