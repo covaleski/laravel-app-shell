@@ -45,7 +45,9 @@ class PackageServiceProvider extends ServiceProvider
             'app-shell',
         );
         $this->publishes(
-            $this->getPublishables(),
+            [
+                "{$this->path}/resources/views" => resource_path('views/vendor/laravel-app-shell'),
+            ],
             'laravel-app-shell',
         );
         Facades\Blade::anonymousComponentPath(
@@ -68,15 +70,5 @@ class PackageServiceProvider extends ServiceProvider
             'with-shell',
             Middleware\EnforceShell::class,
         );
-    }
-
-    /**
-     * Get assets that can be published via the `vendor:publish` command.
-     */
-    protected function getPublishables(): array
-    {
-        return [
-            "{$this->path}/resources/views" => resource_path('views/vendor/laravel-app-shell'),
-        ];
     }
 }
