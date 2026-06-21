@@ -25,12 +25,28 @@ features an entrypoint template - which contains universal metadata and assets
 from HTMX - you can extend to add your own assets and persistent components:
 
 ```html
+@extends('shelter::entrypoint')
+
+@push('links')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/main.css') }}"/>
+    <link rel="icon" type="image/png" href="{{ asset('assets/icon-48x48.png') }}"/>
+    <link rel="manifest" type="application/manifest+json" href="{{ asset('assets/app.webmanifest') }}"/>
+@endpush
+
+@section('body.end')
+    <script type="text/javascript" src="{{ asset('assets/main.js') }}"></script>
+@endsection
 ```
 
 Once you has your entrypoint view defined, you can reference it using the
 `with-entrypoint` middleware:
 
 ```php
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('with-entrypoint:my-entrypoint')->group(function () {
+    /* HTML routes */
+});
 ```
 
 After the entrypoint loads, it will start fetching actual page contents based
