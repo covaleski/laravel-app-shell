@@ -1,10 +1,10 @@
 <?php
 
-namespace Covaleski\LaravelAppShell\Providers;
+namespace Covaleski\Laravel\Shelter\Providers;
 
-use Covaleski\LaravelAppShell\Http\Middleware;
-use Covaleski\LaravelAppShell\View\Directives\PageDirective;
-use Covaleski\LaravelAppShell\View\Directives\ShellDirective;
+use Covaleski\Laravel\Shelter\Http\Middleware;
+use Covaleski\Laravel\Shelter\View\Directives\PageDirective;
+use Covaleski\Laravel\Shelter\View\Directives\ShellDirective;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades;
 use Illuminate\Support\ServiceProvider;

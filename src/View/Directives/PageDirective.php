@@ -1,6 +1,6 @@
 <?php
 
-namespace Covaleski\LaravelAppShell\View\Directives;
+namespace Covaleski\Laravel\Shelter\View\Directives;
 
 class PageDirective extends Directive
 {

@@ -6,7 +6,7 @@ env:
 
 providers:
   - Workbench\App\Providers\WorkbenchServiceProvider
-  - Covaleski\LaravelAppShell\Providers\PackageServiceProvider
+  - Covaleski\Laravel\Shelter\Providers\PackageServiceProvider
 
 migrations:
   - workbench/database/migrations

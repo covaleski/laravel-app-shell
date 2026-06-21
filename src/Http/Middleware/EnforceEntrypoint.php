@@ -1,6 +1,6 @@
 <?php
 
-namespace Covaleski\LaravelAppShell\Http\Middleware;
+namespace Covaleski\Laravel\Shelter\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

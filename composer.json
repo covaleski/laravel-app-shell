@@ -36,7 +36,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Covaleski\\LaravelAppShell\\": "src/"
+            "Covaleski\\Laravel\\Shelter\\": "src/"
         }
     },
     "autoload-dev": {
@@ -81,7 +81,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Covaleski\\LaravelAppShell\\Providers\\PackageServiceProvider"
+                "Covaleski\\Laravel\\Shelter\\Providers\\PackageServiceProvider"
             ]
         }
     },
