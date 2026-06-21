@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "covaleski/laravel-app-shell",
+    "name": "covaleski/shelter",
     "type": "library",
-    "description": "A smooth app-shell architecture experience with nothing but Laravel and HTMX.",
+    "description": "Quick app-shell architecture implementation for Laravel using Blade and HTMX.",
     "keywords": [
         "laravel",
         "framework",

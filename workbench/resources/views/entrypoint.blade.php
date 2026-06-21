@@ -1,4 +1,4 @@
-@extends('app-shell::entrypoint')
+@extends('shelter::entrypoint')
 
 @push('links')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/main.css') }}"/>

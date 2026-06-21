@@ -42,17 +42,17 @@ class PackageServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(
             "{$this->path}/resources/views",
-            'app-shell',
+            'shelter',
         );
         $this->publishes(
             [
-                "{$this->path}/resources/views" => resource_path('views/vendor/laravel-app-shell'),
+                "{$this->path}/resources/views" => resource_path('views/vendor/laravel-shelter'),
             ],
-            'laravel-app-shell',
+            'laravel-shelter',
         );
         Facades\Blade::anonymousComponentPath(
             "{$this->path}/resources/views/components",
-            'app-shell',
+            'shelter',
         );
         Facades\Blade::directive(
             'page',
